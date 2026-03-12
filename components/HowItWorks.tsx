@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import styles from "./HowItWorks.module.css";
+import SpotlightCard from "./SpotlightCard";
 
 const CAL_LINK = "https://cal.com/andre-lopes/revenue-recovery-potential-call";
 
@@ -76,17 +77,18 @@ export default function HowItWorks() {
               <motion.div
                 key={step.step}
                 variants={itemVariants}
-                className={styles.card}
               >
-                <div className={styles.stepBadge}>Step {step.step}</div>
-                <h3 className={styles.cardTitle}>{step.title}</h3>
-                <p className={styles.cardDesc}>{step.description}</p>
-                <div className={styles.youProvide}>
-                  <span className={styles.youProvideLabel}>You provide:</span>
-                  <span className={styles.youProvideValue}>
-                    {step.youProvide}
-                  </span>
-                </div>
+                <SpotlightCard className={styles.card} spotlightColor="rgba(139, 92, 246, 0.15)">
+                  <div className={styles.stepBadge}>Step {step.step}</div>
+                  <h3 className={styles.cardTitle}>{step.title}</h3>
+                  <p className={styles.cardDesc}>{step.description}</p>
+                  <div className={styles.youProvide}>
+                    <span className={styles.youProvideLabel}>You provide:</span>
+                    <span className={styles.youProvideValue}>
+                      {step.youProvide}
+                    </span>
+                  </div>
+                </SpotlightCard>
               </motion.div>
             ))}
           </motion.div>

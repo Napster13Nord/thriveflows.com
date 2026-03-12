@@ -3,6 +3,7 @@
 import { useState, useMemo, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import styles from "./ROICalculator.module.css";
+import SpotlightCard from "./SpotlightCard";
 
 const PACKAGES = [
   { price: 300, automations: 3, key: "essential" },
@@ -142,7 +143,7 @@ export default function ROICalculator() {
             </div>
 
             {/* Right: Results */}
-            <div className={styles.results}>
+            <SpotlightCard className={styles.results} spotlightColor="rgba(139, 92, 246, 0.15)">
               <h3 className={styles.resultsTitle}>
                 Your Growth <span className={styles.purple}>Potential</span>
               </h3>
@@ -195,7 +196,7 @@ export default function ROICalculator() {
                 <span className={styles.roiLabel}>ROI in 1 Year:</span>
                 <span className={styles.roiValue}>{formatROI(results.roi)}</span>
               </div>
-            </div>
+            </SpotlightCard>
           </div>
 
           <div className={styles.ctaRow}>

@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import styles from "./StatsCards.module.css";
+import SpotlightCard from "./SpotlightCard";
 
 type CardItem = {
   type: "normal" | "woocommerce" | "google";
@@ -155,11 +156,12 @@ export default function StatsCards() {
             key={i}
             variants={itemVariants}
             whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-            className={styles.card}
           >
-            {card.type === "woocommerce" && <WooCommerceCard />}
-            {card.type === "normal" && <NormalCard card={card} shouldAnimate={inView} />}
-            {card.type === "google" && <GoogleCard card={card} />}
+            <SpotlightCard className={styles.card} spotlightColor="rgba(139, 92, 246, 0.15)" style={{ height: "100%" }}>
+              {card.type === "woocommerce" && <WooCommerceCard />}
+              {card.type === "normal" && <NormalCard card={card} shouldAnimate={inView} />}
+              {card.type === "google" && <GoogleCard card={card} />}
+            </SpotlightCard>
           </motion.div>
         ))}
       </motion.div>

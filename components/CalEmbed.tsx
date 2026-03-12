@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import styles from "./CalEmbed.module.css";
+import SpotlightCard from "./SpotlightCard";
 
 export default function CalEmbed() {
   const ref = useRef<HTMLDivElement>(null);
@@ -49,7 +50,7 @@ export default function CalEmbed() {
           className={styles.inner}
         >
           {/* Main container holding both text and calendar in a single column */}
-          <div className={styles.calContainer}>
+          <SpotlightCard className={styles.calContainer} spotlightColor="rgba(139, 92, 246, 0.12)">
 
             {/* Top Text Side */}
             <div className={styles.calTextSide}>
@@ -78,7 +79,7 @@ export default function CalEmbed() {
               />
             </div>
 
-          </div>
+          </SpotlightCard>
         </motion.div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 "use client";
 
 import styles from "./Reviews.module.css";
+import SpotlightCard from "./SpotlightCard";
 
 type Review = {
   name: string;
@@ -100,7 +101,7 @@ export default function Reviews() {
       <div className={styles.marqueeWrapper}>
         <div className={styles.marqueeTrack}>
           {MARQUEE_ITEMS.map((review, i) => (
-            <div key={i} className={styles.card}>
+            <SpotlightCard key={i} className={styles.card} spotlightColor="rgba(139, 92, 246, 0.15)">
               {/* Profile row */}
               <div className={styles.profileRow}>
                 {review.photoSrc ? (
@@ -138,7 +139,7 @@ export default function Reviews() {
                 </div>
                 <GoogleIcon />
               </div>
-            </div>
+            </SpotlightCard>
           ))}
         </div>
       </div>
