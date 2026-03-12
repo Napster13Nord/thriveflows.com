@@ -43,7 +43,7 @@ const REVIEWS: Review[] = [
     initial: "P",
     color: "#607D8B",
     timeAgo: "4 meses atrás",
-    stars: 4,
+    stars: 5,
     photoSrc: "/reviews/RgkBKlTT69xgZPIkQ168MW4DNdw.avif",
     text: "André understood our goals from day one and provided solutions that have directly increased our online sales. Totally recommend!",
   },
