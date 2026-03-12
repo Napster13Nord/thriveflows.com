@@ -3,34 +3,41 @@
   overflow: hidden;
 }
 
-.scrollContainer {
+.marqueeWrapper {
+  overflow: hidden;
   width: 100%;
+  /* Fade edges */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
 
-.scrollTrack {
+.marqueeTrack {
   display: flex;
   gap: 20px;
-  overflow-x: auto;
-  padding: 0 24px 16px;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  width: max-content;
+  animation: marqueeScroll 40s linear infinite;
 }
 
-.scrollTrack::-webkit-scrollbar {
-  display: none;
+.marqueeTrack:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Move exactly half the total width since we duplicated the array */
+    transform: translateX(calc(-50%));
+  }
 }
 
 .card {
-  flex: 0 0 420px;
-  min-height: 280px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
+  flex-shrink: 0;
   border-radius: 16px;
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
-  scroll-snap-align: start;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
   transition: border-color 0.3s ease;
 }
 
@@ -38,87 +45,20 @@
   border-color: var(--border-purple);
 }
 
-/* Profile row */
-.profileRow {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-weight: 700;
-  font-size: 18px;
-  flex-shrink: 0;
-}
-
-.avatarPhoto {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+.reviewImg {
+  display: block;
+  width: auto;
+  height: 320px;
   object-fit: cover;
-  flex-shrink: 0;
-}
-
-.profileInfo {
-  flex: 1;
-  min-width: 0;
-}
-
-.profileName {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.profileTime {
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-/* Review text */
-.reviewText {
-  font-size: 15px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  flex-grow: 1;
-}
-
-/* Bottom row: stars left, Google G right */
-.bottomRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.stars {
-  display: flex;
-  gap: 3px;
-}
-
-.star {
-  font-size: 22px;
-  color: #FFC107;
-  line-height: 1;
 }
 
 @media (max-width: 768px) {
-  .card {
-    flex: 0 0 300px;
-    min-height: 240px;
-    padding: 20px;
+  .reviewImg {
+    height: 240px;
   }
 
-  .scrollTrack {
-    padding: 0 16px 12px;
+  .marqueeTrack {
     gap: 12px;
+    animation-duration: 30s;
   }
 }

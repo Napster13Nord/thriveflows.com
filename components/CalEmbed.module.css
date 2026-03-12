@@ -1,86 +1,45 @@
 .section {
   padding-top: 40px;
-  padding-bottom: 40px;
+  padding-bottom: 60px;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 48px;
-}
-
-.layout {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 40px;
-  align-items: start;
-}
-
-.info {
-  padding: 8px 0;
-}
-
-.infoTitle {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 24px;
-}
-
-.steps {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.step {
-  display: flex;
-  gap: 12px;
-  font-size: 16px;
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
-
-.stepNum {
-  color: var(--accent-purple);
-  font-weight: 700;
-  min-width: 20px;
-}
-
-.noPressure {
-  margin-top: 28px;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text-muted);
-  font-style: italic;
+  max-width: 700px;
+  margin-bottom: 40px;
 }
 
 .calContainer {
+  width: 100%;
+  max-width: 900px;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: 16px;
   overflow: hidden;
-  min-height: 500px;
+  min-height: 600px;
 }
 
 .calEmbed {
   width: 100%;
   height: 100%;
-  min-height: 500px;
+  min-height: 600px;
   overflow: auto;
 }
 
 @media (max-width: 768px) {
-  .layout {
-    grid-template-columns: 1fr;
-  }
-
   .calContainer {
-    min-height: 400px;
+    min-height: 450px;
   }
 
   .calEmbed {
-    min-height: 400px;
+    min-height: 450px;
   }
 }

@@ -13,7 +13,6 @@ export default function CalEmbed() {
     if (calLoaded.current) return;
     calLoaded.current = true;
 
-    // Load Cal.com embed script
     const script = document.createElement("script");
     script.src = "https://app.cal.com/embed/embed.js";
     script.async = true;
@@ -47,49 +46,25 @@ export default function CalEmbed() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
+          className={styles.inner}
         >
+          {/* Title and description centered */}
           <div className={styles.header}>
             <h2 className="section-title section-title-centered">
-              Stop Losing Sales Today - Book Your Free Strategy Call
+              Stop Losing Sales Today — Book Your Free Strategy Call
             </h2>
+            <p className="section-subtitle section-subtitle-centered" style={{ marginTop: 16 }}>
+              15 minutes. No sales pitch. Just a clear look at how much revenue
+              your store could be recovering — and whether our system fits.
+            </p>
           </div>
 
-          <div className={styles.layout}>
-            {/* Left: What happens on the call */}
-            <div className={styles.info}>
-              <h3 className={styles.infoTitle}>What happens on the call:</h3>
-              <div className={styles.steps}>
-                <div className={styles.step}>
-                  <span className={styles.stepNum}>1.</span>
-                  <span>We calculate your exact revenue loss (2 min)</span>
-                </div>
-                <div className={styles.step}>
-                  <span className={styles.stepNum}>2.</span>
-                  <span>Show you which automations fit your store (5 min)</span>
-                </div>
-                <div className={styles.step}>
-                  <span className={styles.stepNum}>3.</span>
-                  <span>Give you a custom recovery forecast (3 min)</span>
-                </div>
-                <div className={styles.step}>
-                  <span className={styles.stepNum}>4.</span>
-                  <span>Answer all your questions (5 min)</span>
-                </div>
-                <div className={styles.step}>
-                  <span className={styles.stepNum}>5.</span>
-                  <span>You decide if it makes sense</span>
-                </div>
-              </div>
-              <p className={styles.noPressure}>No pressure. Just value.</p>
-            </div>
-
-            {/* Right: Cal.com embed */}
-            <div className={styles.calContainer}>
-              <div
-                id="my-cal-inline-revenue-recovery-potential-call"
-                className={styles.calEmbed}
-              />
-            </div>
+          {/* Cal.com embed below, full width */}
+          <div className={styles.calContainer}>
+            <div
+              id="my-cal-inline-revenue-recovery-potential-call"
+              className={styles.calEmbed}
+            />
           </div>
         </motion.div>
       </div>
