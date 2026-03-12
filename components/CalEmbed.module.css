@@ -29,7 +29,7 @@
 }
 
 .calTitle {
-  font-size: 38px;
+  font-size: 40px;
   font-weight: 700;
   color: #fff;
   line-height: 1.25;
@@ -44,7 +44,7 @@
 }
 
 .calSubtitle {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   color: #fff;
   margin-bottom: 16px;
@@ -57,14 +57,14 @@
   flex-direction: column;
   gap: 12px;
   color: rgba(255, 255, 255, 0.8);
-  font-size: 16px;
+  font-size: 18px;
   margin-bottom: 32px;
 }
 
 .noPressure {
   font-style: italic;
   color: rgba(255, 255, 255, 0.5);
-  font-size: 15px;
+  font-size: 17px;
 }
 
 .calEmbedWrapper {
@@ -86,7 +86,7 @@
   }
 
   .calTitle {
-    font-size: 28px;
+    font-size: 30px;
     margin-bottom: 24px;
   }
 

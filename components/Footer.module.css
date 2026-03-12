@@ -26,21 +26,21 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--text-primary);
   text-decoration: none;
 }
 
 .brandDesc {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text-secondary);
   line-height: 1.6;
   max-width: 360px;
 }
 
 .brandRegion {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text-muted);
 }
 
@@ -51,7 +51,7 @@
 }
 
 .colTitle {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--text-primary);
   text-transform: uppercase;
@@ -65,7 +65,7 @@
 }
 
 .colLink {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text-secondary);
   text-decoration: none;
   transition: color 0.2s ease;
@@ -76,7 +76,7 @@
 }
 
 .colText {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text-muted);
 }
 
@@ -90,7 +90,7 @@
 }
 
 .creditLink {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text-muted);
   text-decoration: none;
   transition: color 0.2s ease;
@@ -106,7 +106,7 @@
 }
 
 .bottomRight {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text-muted);
 }
 

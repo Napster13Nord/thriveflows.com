@@ -22,7 +22,7 @@
 }
 
 .inputsTitle {
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 500;
   color: #fff;
   margin-bottom: 2rem;
@@ -40,19 +40,19 @@
 }
 
 .sliderLabel {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   color: #fff;
 }
 
 .sliderValue {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   color: #fff;
 }
 
 .sliderValuePurple {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   color: var(--accent-purple);
 }
@@ -92,7 +92,7 @@
 .sliderRange {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-faint);
   margin-top: 4px;
 }
@@ -106,7 +106,7 @@
 }
 
 .resultsTitle {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 500;
   color: #fff;
   margin-bottom: 1.5rem;
@@ -130,42 +130,42 @@
 }
 
 .resultLabel {
-  font-size: 15px;
+  font-size: 17px;
   color: var(--text-secondary);
 }
 
 .resultSub {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-faint);
   margin-top: 2px;
 }
 
 .resultValue {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 700;
   color: #fff;
 }
 
 .resultValueYellow {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--accent-yellow);
 }
 
 .resultValueYellowMed {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--accent-yellow);
 }
 
 .resultValueGreen {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--accent-green);
 }
 
 .resultValueGreenBig {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 800;
   color: var(--accent-green);
 }
@@ -178,13 +178,13 @@
 }
 
 .roiLabel {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.9);
 }
 
 .roiValue {
-  font-size: 32px;
+  font-size: 34px;
   font-weight: 800;
   color: var(--accent-purple);
 }

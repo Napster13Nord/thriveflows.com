@@ -61,7 +61,7 @@
   justify-content: center;
   color: #fff;
   font-weight: 700;
-  font-size: 17px;
+  font-size: 19px;
   flex-shrink: 0;
 }
 
@@ -78,21 +78,21 @@
 }
 
 .profileName {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 700;
   color: #fff;
   line-height: 1.2;
 }
 
 .profileTime {
-  font-size: 13px;
+  font-size: 15px;
   color: rgba(255, 255, 255, 0.5);
   margin-top: 2px;
 }
 
 /* ── Review text ── */
 .reviewText {
-  font-size: 14px;
+  font-size: 19px;
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.65;
   margin: 0 0 20px;
@@ -112,13 +112,13 @@
 }
 
 .star {
-  font-size: 20px;
+  font-size: 22px;
   color: #FFC107;
   line-height: 1;
 }
 
 .starEmpty {
-  font-size: 20px;
+  font-size: 22px;
   color: rgba(255, 193, 7, 0.3);
   line-height: 1;
 }
