@@ -19,9 +19,11 @@ export default function VideoSection() {
           transition={{ duration: 0.6 }}
           className={styles.content}
         >
-          <span className="section-badge">Real Results</span>
+          <span className="section-badge">Results</span>
           <h2 className="section-title section-title-centered">
-            The Complete System: How 110+ Stores Recover 17-41% of Lost Revenue
+            The Complete System: How 110+<br />
+            Stores Recover 17-41% of Lost<br />
+            Revenue
           </h2>
           <p className="section-subtitle section-subtitle-centered">
             See the complete picture: real client dashboards, how the system works, and
@@ -29,13 +31,13 @@ export default function VideoSection() {
             3 minutes that could change your business.
           </p>
 
-          {/* Video Embed */}
+          {/* Vimeo Video Embed */}
           <div className={styles.videoContainer}>
             <div className={styles.videoWrapper}>
               <iframe
-                src="https://www.youtube.com/embed/placeholder"
+                src="https://player.vimeo.com/video/1050498029?badge=0&autopause=0&player_id=0&app_id=58479"
                 title="ThriveFlows System Overview"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
                 allowFullScreen
                 className={styles.videoIframe}
               />
@@ -46,12 +48,11 @@ export default function VideoSection() {
             href={CAL_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="cta-button"
-            style={{ marginTop: 32 }}
+            className={styles.ctaBtn}
           >
             Book Your Free Strategy Call
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M6 10h8m0 0l-3-3m3 3l-3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M5 13L13 5M13 5H6M13 5V12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </a>
         </motion.div>

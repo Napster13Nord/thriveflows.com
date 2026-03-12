@@ -8,9 +8,11 @@ const CAL_LINK = "https://cal.com/andre-lopes/revenue-recovery-potential-call";
 export default function Hero() {
   return (
     <section className={styles.hero}>
-      {/* Background glow effects */}
-      <div className={styles.glowLeft} />
-      <div className={styles.glowRight} />
+      {/* Star particles */}
+      <div className={styles.stars} />
+      {/* Central purple nebula glow */}
+      <div className={styles.nebula} />
+      <div className={styles.nebulaSecondary} />
 
       <div className={styles.inner}>
         <motion.div
@@ -20,15 +22,16 @@ export default function Hero() {
           className={styles.content}
         >
           {/* Badge */}
-          <span className={styles.badge}>🎯 For WooCommerce</span>
+          <div className={styles.badgeRow}>
+            <span className={styles.badgePill}>🎯 For WooCommerce</span>
+            <span className={styles.badgeText}>Store Owners</span>
+          </div>
 
-          {/* Headline */}
+          {/* Headline — 3 big bold lines */}
           <h1 className={styles.headline}>
-            <span className={styles.headlineSub}>Done-For-You Email Automation</span>
-            <span className={styles.headlineMain}>
-              Recover 10-30% of Lost Revenue{" "}
-              <span className={styles.headlineMuted}>Without Ads or Extra Work</span>
-            </span>
+            <span className={styles.line1}>Done-For-You Email Automation</span>
+            <span className={styles.line2}>Recover 10-30% of Lost Revenue</span>
+            <span className={styles.line3}>Without Ads or Extra Work</span>
           </h1>
 
           {/* Description */}
@@ -43,11 +46,11 @@ export default function Hero() {
             href={CAL_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="cta-button"
+            className={styles.ctaBtn}
           >
             Book Your Free Strategy Call
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M6 10h8m0 0l-3-3m3 3l-3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M5 13L13 5M13 5H6M13 5V12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </a>
 

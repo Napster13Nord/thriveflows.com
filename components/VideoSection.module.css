@@ -33,3 +33,23 @@
   height: 100%;
   border: none;
 }
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: linear-gradient(135deg, #7A5AF8, #6C3AE8);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-top: 32px;
+}
+
+.ctaBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(122, 90, 248, 0.45);
+}

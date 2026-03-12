@@ -6,28 +6,66 @@
   position: relative;
   overflow: hidden;
   padding: 120px 24px 60px;
+  background: #050510;
 }
 
-.glowLeft {
+/* Tiny static star dots */
+.stars {
   position: absolute;
-  top: 10%;
-  left: -10%;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 45%, rgba(255,255,255,0.25) 0%, transparent 100%),
+    radial-gradient(1px 1px at 40% 15%, rgba(255,255,255,0.35) 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 60%, rgba(255,255,255,0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 30%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 85% 55%, rgba(255,255,255,0.25) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 75%, rgba(255,255,255,0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 80%, rgba(255,255,255,0.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 10%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 35% 90%, rgba(255,255,255,0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 5% 50%, rgba(255,255,255,0.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 75%, rgba(255,255,255,0.25) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Main purple nebula — large, centered, behind the headline */
+.nebula {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  width: 900px;
+  height: 600px;
+  background: radial-gradient(ellipse at center,
+    rgba(122, 90, 248, 0.18) 0%,
+    rgba(122, 90, 248, 0.10) 30%,
+    rgba(122, 90, 248, 0.04) 55%,
+    transparent 75%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(40px);
+}
+
+.nebulaSecondary {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(129, 74, 200, 0.12), transparent 70%);
+  height: 350px;
+  background: radial-gradient(ellipse at center,
+    rgba(122, 90, 248, 0.15) 0%,
+    rgba(139, 92, 246, 0.06) 50%,
+    transparent 75%
+  );
   border-radius: 50%;
   pointer-events: none;
-}
-
-.glowRight {
-  position: absolute;
-  bottom: 5%;
-  right: -10%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.08), transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
+  z-index: 0;
+  filter: blur(30px);
 }
 
 .inner {
@@ -39,57 +77,95 @@
 
 .content {
   text-align: center;
-  max-width: 800px;
+  max-width: 850px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.badge {
+/* Badge row: purple pill + "Store Owners" */
+.badgeRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.badgePill {
   display: inline-block;
-  background: rgba(129, 74, 200, 0.12);
-  border: 1px solid rgba(129, 74, 200, 0.25);
-  color: #a78bfa;
-  padding: 8px 20px;
+  background: linear-gradient(135deg, rgba(122, 90, 248, 0.3), rgba(122, 90, 248, 0.15));
+  border: 1px solid rgba(122, 90, 248, 0.4);
+  color: #c4b5fd;
+  padding: 8px 18px;
   border-radius: 100px;
   font-size: 14px;
   font-weight: 600;
-  margin-bottom: 28px;
-  letter-spacing: 0.3px;
 }
 
+.badgeText {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* Headline — 3 large bold lines */
 .headline {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   margin-bottom: 24px;
 }
 
-.headlineSub {
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--accent-purple);
-  letter-spacing: 0.3px;
-}
-
-.headlineMain {
+.line1 {
   font-size: 48px;
   font-weight: 800;
   line-height: 1.15;
   color: var(--text-primary);
 }
 
-.headlineMuted {
+.line2 {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--text-primary);
+}
+
+.line3 {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.15;
   color: var(--text-secondary);
 }
 
 .description {
-  font-size: 18px;
+  font-size: 17px;
   color: var(--text-secondary);
   line-height: 1.7;
   margin-bottom: 36px;
-  max-width: 680px;
+  max-width: 620px;
+}
+
+/* CTA button — purple with diagonal arrow */
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: linear-gradient(135deg, #7A5AF8, #6C3AE8);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.ctaBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(122, 90, 248, 0.45);
 }
 
 .trustBadges {
@@ -113,16 +189,14 @@
     min-height: auto;
   }
 
-  .headlineMain {
-    font-size: 32px;
-  }
-
-  .headlineSub {
-    font-size: 16px;
+  .line1,
+  .line2,
+  .line3 {
+    font-size: 30px;
   }
 
   .description {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .trustBadges {
@@ -131,5 +205,20 @@
 
   .trustBadge {
     font-size: 13px;
+  }
+
+  .nebula {
+    width: 400px;
+    height: 300px;
+  }
+
+  .nebulaSecondary {
+    width: 250px;
+    height: 200px;
+  }
+
+  .ctaBtn {
+    width: 100%;
+    justify-content: center;
   }
 }

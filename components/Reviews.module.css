@@ -6,32 +6,87 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 48px;
+  margin-bottom: 36px;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 16px;
 }
 
-.reviewCard {
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid var(--border-purple);
+.card {
   background: var(--bg-card);
-  cursor: default;
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   transition: border-color 0.3s ease;
 }
 
-.reviewCard:hover {
-  border-color: rgba(139, 92, 246, 0.5);
+.card:hover {
+  border-color: var(--border-purple);
 }
 
-.reviewImage {
-  width: 100%;
-  height: auto;
-  display: block;
+/* Profile row */
+.profileRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.profileInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.profileName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.profileTime {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.googleIcon {
+  flex-shrink: 0;
+}
+
+/* Stars */
+.stars {
+  display: flex;
+  gap: 2px;
+}
+
+.star {
+  font-size: 16px;
+  color: #FFC107;
+  line-height: 1;
+}
+
+/* Review text */
+.reviewText {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
 }
 
 @media (max-width: 1024px) {
@@ -43,6 +98,6 @@
 @media (max-width: 640px) {
   .grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 12px;
   }
 }
