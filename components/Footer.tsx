@@ -3,7 +3,6 @@ import styles from "./Footer.module.css";
 const NAV_LINKS = [
   { label: "Results", href: "#results" },
   { label: "ROI Calculator", href: "#calculator" },
-  { label: "Our Pillars", href: "#pillars" },
   { label: "How it Works", href: "#how" },
   { label: "FAQs", href: "#faq" },
 ];

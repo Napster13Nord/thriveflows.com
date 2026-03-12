@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import styles from "./Hero.module.css";
+import StatsCards from "./StatsCards";
 
 const CAL_LINK = "https://cal.com/andre-lopes/revenue-recovery-potential-call";
 
@@ -61,6 +62,11 @@ export default function Hero() {
             <span className={styles.trustBadge}>✓ Results Guaranteed</span>
           </div>
         </motion.div>
+      </div>
+
+      {/* Put stats cards inside hero to show above fold */}
+      <div className={styles.statsContainer}>
+        <StatsCards />
       </div>
     </section>
   );

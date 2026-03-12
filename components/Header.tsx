@@ -7,7 +7,6 @@ import styles from "./Header.module.css";
 const NAV_LINKS = [
   { label: "Results", href: "#results" },
   { label: "ROI Calculator", href: "#calculator" },
-  { label: "Our Pillars", href: "#pillars" },
   { label: "How It Works", href: "#how" },
   { label: "FAQs", href: "#faq" },
 ];

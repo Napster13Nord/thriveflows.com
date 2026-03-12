@@ -1,6 +1,5 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import StatsCards from "@/components/StatsCards";
 import VideoSection from "@/components/VideoSection";
 import ROICalculator from "@/components/ROICalculator";
 import HowItWorks from "@/components/HowItWorks";
@@ -16,7 +15,6 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <StatsCards />
         <VideoSection />
         <ROICalculator />
         <HowItWorks />
