@@ -9,9 +9,23 @@
   width: 100%;
 }
 
-.textContent {
-  max-width: 800px;
-  margin-bottom: 48px;
+/* Calendar Card holding everything */
+.calContainer {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.calTextSide {
+  padding: 40px 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .calTitle {
@@ -20,6 +34,13 @@
   color: #fff;
   line-height: 1.25;
   margin-bottom: 40px;
+  max-width: 800px;
+}
+
+.calContentWrapper {
+  max-width: 800px;
+  width: 100%;
+  text-align: left;
 }
 
 .calSubtitle {
@@ -46,14 +67,10 @@
   font-size: 15px;
 }
 
-/* Calendar Card */
-.calContainer {
+.calEmbedWrapper {
   width: 100%;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 16px;
-  overflow: hidden;
-  min-height: 600px;
+  padding: 0 40px 40px;
+  margin-top: 40px;
 }
 
 .calEmbed {
@@ -64,18 +81,20 @@
 }
 
 @media (max-width: 768px) {
+  .calTextSide {
+    padding: 24px 24px 0;
+  }
+
   .calTitle {
     font-size: 28px;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
   }
 
-  .textContent {
-    margin-bottom: 32px;
+  .calEmbedWrapper {
+    padding: 0 24px 24px;
+    margin-top: 24px;
   }
 
-  .calContainer {
-    min-height: 450px;
-  }
   .calEmbed {
     min-height: 450px;
   }
