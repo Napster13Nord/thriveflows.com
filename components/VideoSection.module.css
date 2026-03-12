@@ -1,0 +1,35 @@
+.section {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.videoContainer {
+  margin-top: 40px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.videoWrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 */
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-purple);
+  background: var(--bg-card);
+}
+
+.videoIframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}

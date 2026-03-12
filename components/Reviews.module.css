@@ -1,0 +1,48 @@
+.section {
+  padding-top: 40px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.reviewCard {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-purple);
+  background: var(--bg-card);
+  cursor: default;
+  transition: border-color 0.3s ease;
+}
+
+.reviewCard:hover {
+  border-color: rgba(139, 92, 246, 0.5);
+}
+
+.reviewImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

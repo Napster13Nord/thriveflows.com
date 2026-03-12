@@ -1,0 +1,135 @@
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 120px 24px 60px;
+}
+
+.glowLeft {
+  position: absolute;
+  top: 10%;
+  left: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(129, 74, 200, 0.12), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.glowRight {
+  position: absolute;
+  bottom: 5%;
+  right: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.08), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.inner {
+  max-width: var(--max-width);
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.badge {
+  display: inline-block;
+  background: rgba(129, 74, 200, 0.12);
+  border: 1px solid rgba(129, 74, 200, 0.25);
+  color: #a78bfa;
+  padding: 8px 20px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 28px;
+  letter-spacing: 0.3px;
+}
+
+.headline {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.headlineSub {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--accent-purple);
+  letter-spacing: 0.3px;
+}
+
+.headlineMain {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--text-primary);
+}
+
+.headlineMuted {
+  color: var(--text-secondary);
+}
+
+.description {
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 36px;
+  max-width: 680px;
+}
+
+.trustBadges {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.trustBadge {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 100px 16px 40px;
+    min-height: auto;
+  }
+
+  .headlineMain {
+    font-size: 32px;
+  }
+
+  .headlineSub {
+    font-size: 16px;
+  }
+
+  .description {
+    font-size: 16px;
+  }
+
+  .trustBadges {
+    gap: 12px;
+  }
+
+  .trustBadge {
+    font-size: 13px;
+  }
+}

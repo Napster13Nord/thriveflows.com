@@ -1,0 +1,562 @@
+// FuturisticCardsGrid.tsx
+import * as React from "react"
+import { motion } from "framer-motion"
+import { addPropertyControls, ControlType } from "framer"
+
+type CardItem = {
+    number?: number
+    numberDuration?: number
+    prefix?: string
+    suffix?: string
+    title?: string
+    description?: string
+    type?: "normal" | "woocommerce" | "google"
+    rating?: number
+    reviewCount?: number
+}
+
+type Props = {
+    cards: CardItem[]
+    layout: "grid" | "flex"
+    columnsDesktop: number
+    columnsTablet: number
+    columnsMobile: number
+    gap: number
+    borderColor: string
+    borderThickness: number
+    borderRadius: number
+    backgroundColor: string
+    fontFamily: string
+    fontColor: string
+    padding: number
+    stagger: number
+    cardHeight: number
+}
+
+const DEFAULT_NUMBER_DURATION = 1500
+
+export default function FuturisticCardsGrid(props: Props) {
+    const {
+        cards,
+        layout,
+        columnsDesktop,
+        columnsTablet,
+        columnsMobile,
+        gap,
+        borderColor,
+        borderThickness,
+        borderRadius,
+        backgroundColor,
+        fontFamily,
+        fontColor,
+        padding,
+        stagger,
+        cardHeight,
+    } = props
+
+    // Responsive columns
+    const [device, setDevice] = React.useState<"desktop" | "tablet" | "mobile">(
+        "desktop"
+    )
+
+    React.useEffect(() => {
+        function onResize() {
+            const w = window.innerWidth
+            if (w < 640) setDevice("mobile")
+            else if (w < 1024) setDevice("tablet")
+            else setDevice("desktop")
+        }
+        onResize()
+        window.addEventListener("resize", onResize)
+        return () => window.removeEventListener("resize", onResize)
+    }, [])
+
+    const cols =
+        device === "desktop"
+            ? columnsDesktop
+            : device === "tablet"
+              ? columnsTablet
+              : columnsMobile
+
+    // Animation variants
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        show: { opacity: 1, transition: { staggerChildren: stagger } },
+    }
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        show: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.5, ease: "easeOut" },
+        },
+    }
+
+    // Rolling number animation
+    const useRollingNumber = (
+        value: number,
+        durationMs = DEFAULT_NUMBER_DURATION
+    ) => {
+        const [displayValue, setDisplayValue] = React.useState(0)
+
+        React.useEffect(() => {
+            let startTime: number | null = null
+            let mounted = true
+
+            const step = (ts: number) => {
+                if (!mounted) return
+                if (!startTime) startTime = ts
+                const progress = Math.min((ts - startTime) / durationMs, 1)
+                const cur = Math.floor(progress * value)
+                setDisplayValue(cur)
+                if (progress < 1) requestAnimationFrame(step)
+            }
+
+            requestAnimationFrame(step)
+            return () => {
+                mounted = false
+            }
+        }, [value, durationMs])
+
+        return displayValue
+    }
+
+    const wrapperStyle: React.CSSProperties = {
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        padding: 16,
+        boxSizing: "border-box",
+    }
+
+    const containerStyle: React.CSSProperties = {
+        width: "100%",
+        maxWidth: 1200,
+        display: layout === "grid" ? "grid" : "flex",
+        gridTemplateColumns:
+            layout === "grid" ? `repeat(${cols}, minmax(0, 1fr))` : undefined,
+        gap,
+        flexWrap: layout === "flex" ? "wrap" : undefined,
+        justifyContent: "center",
+        boxSizing: "border-box",
+    }
+
+    const renderCardContent = (card: CardItem, displayNumber: number) => {
+        // WooCommerce Card
+        if (card.type === "woocommerce") {
+            return (
+                <div
+                    style={{
+                        height: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        padding: `${padding}px ${padding * 1.5}px`,
+                        color: fontColor,
+                    }}
+                >
+                    <img
+                        src="https://framerusercontent.com/images/tvcpao7CmKkMRaspHWqi3ePgd9I.png"
+                        alt="WooCommerce"
+                        style={{
+                            width: "100%",
+                            maxWidth: 140,
+                            height: "auto",
+                            objectFit: "contain",
+                        }}
+                    />
+                </div>
+            )
+        }
+
+        // Google Rating Card
+        if (card.type === "google") {
+            return (
+                <div
+                    style={{
+                        height: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        textAlign: "center",
+                        padding,
+                        color: fontColor,
+                        gap: 6,
+                    }}
+                >
+                    {/* Google Rating Text */}
+                    <div
+                        style={{
+                            fontSize: 14,
+                            fontWeight: 600,
+                            opacity: 0.9,
+                        }}
+                    >
+                        Google Rating
+                    </div>
+
+                    {/* Rating Number + Stars in same line */}
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 8,
+                        }}
+                    >
+                        <span
+                            style={{
+                                fontSize: 28,
+                                fontWeight: 700,
+                                lineHeight: 1,
+                            }}
+                        >
+                            {card.rating || 5.0}
+                        </span>
+                        <div
+                            style={{
+                                display: "flex",
+                                gap: 2,
+                            }}
+                        >
+                            {[1, 2, 3, 4, 5].map((star) => (
+                                <span
+                                    key={star}
+                                    style={{
+                                        fontSize: 16,
+                                        color: "#FFC107",
+                                        lineHeight: 1,
+                                    }}
+                                >
+                                    ★
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Review Count */}
+                    {card.reviewCount && (
+                        <div
+                            style={{
+                                fontSize: 12,
+                                opacity: 0.7,
+                                color: "#4285F4",
+                            }}
+                        >
+                            {card.reviewCount} reviews
+                        </div>
+                    )}
+                </div>
+            )
+        }
+
+        // Normal Card (default)
+        return (
+            <div
+                style={{
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                    padding,
+                    color: fontColor,
+                    gap: 4,
+                }}
+            >
+                <div
+                    style={{
+                        fontSize: 32,
+                        fontWeight: 700,
+                        lineHeight: 1,
+                    }}
+                >
+                    {(card.prefix ?? "") +
+                        displayNumber.toLocaleString() +
+                        (card.suffix ?? "")}
+                </div>
+                <div
+                    style={{
+                        fontSize: 15,
+                        fontWeight: 600,
+                    }}
+                >
+                    {card.title}
+                </div>
+                <div
+                    style={{
+                        fontSize: 12,
+                        opacity: 0.7,
+                        fontWeight: 400,
+                    }}
+                >
+                    {card.description}
+                </div>
+            </div>
+        )
+    }
+
+    return (
+        <div style={wrapperStyle}>
+            <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                animate="show"
+                style={{ ...containerStyle, fontFamily }}
+            >
+                {cards.map((card, i) => {
+                    const displayNumber = useRollingNumber(
+                        card.number ?? 0,
+                        card.numberDuration ?? DEFAULT_NUMBER_DURATION
+                    )
+
+                    return (
+                        <motion.div
+                            key={i}
+                            variants={itemVariants}
+                            whileHover={{
+                                scale: 1.02,
+                                transition: { duration: 0.2 },
+                            }}
+                            style={{
+                                position: "relative",
+                                borderRadius,
+                                border: `${borderThickness}px solid ${borderColor}`,
+                                background: backgroundColor,
+                                minWidth: 140,
+                                height: cardHeight,
+                                boxSizing: "border-box",
+                                cursor: "default",
+                            }}
+                        >
+                            {renderCardContent(card, displayNumber)}
+                        </motion.div>
+                    )
+                })}
+            </motion.div>
+        </div>
+    )
+}
+
+// Defaults
+FuturisticCardsGrid.defaultProps = {
+    cards: [
+        {
+            type: "woocommerce",
+        },
+        {
+            number: 110,
+            prefix: "",
+            suffix: "+",
+            title: "Stores",
+            description: "Using Our System",
+            numberDuration: 1500,
+            type: "normal",
+        },
+        {
+            number: 800,
+            prefix: "€",
+            suffix: "K+",
+            title: "Recovered",
+            description: "For Our Clients",
+            numberDuration: 1800,
+            type: "normal",
+        },
+        {
+            number: 20,
+            prefix: "",
+            suffix: "%",
+            title: "Increase",
+            description: "Average Revenue Lift",
+            numberDuration: 1200,
+            type: "normal",
+        },
+        {
+            type: "google",
+            rating: 5.0,
+            reviewCount: 32,
+        },
+    ],
+    layout: "grid",
+    columnsDesktop: 5,
+    columnsTablet: 3,
+    columnsMobile: 1,
+    gap: 20,
+    borderColor: "rgba(139, 92, 246, 0.3)",
+    borderThickness: 1,
+    borderRadius: 16,
+    backgroundColor: "rgb(18, 25, 41)",
+    fontFamily: "Inter, -apple-system, sans-serif",
+    fontColor: "#ffffff",
+    padding: 16,
+    stagger: 0.1,
+    cardHeight: 110,
+}
+
+// Framer controls
+addPropertyControls(FuturisticCardsGrid, {
+    cards: {
+        type: ControlType.Array,
+        title: "Cards",
+        propertyControl: {
+            type: ControlType.Object,
+            controls: {
+                type: {
+                    type: ControlType.Enum,
+                    title: "Type",
+                    options: ["normal", "woocommerce", "google"],
+                    defaultValue: "normal",
+                },
+                number: {
+                    type: ControlType.Number,
+                    title: "Number",
+                    defaultValue: 100,
+                    hidden: (props) =>
+                        props.type === "woocommerce" || props.type === "google",
+                },
+                numberDuration: {
+                    type: ControlType.Number,
+                    title: "Duration (ms)",
+                    defaultValue: 1500,
+                    hidden: (props) =>
+                        props.type === "woocommerce" || props.type === "google",
+                },
+                prefix: {
+                    type: ControlType.String,
+                    title: "Prefix",
+                    defaultValue: "",
+                    hidden: (props) =>
+                        props.type === "woocommerce" || props.type === "google",
+                },
+                suffix: {
+                    type: ControlType.String,
+                    title: "Suffix",
+                    defaultValue: "",
+                    hidden: (props) =>
+                        props.type === "woocommerce" || props.type === "google",
+                },
+                title: {
+                    type: ControlType.String,
+                    title: "Title",
+                    defaultValue: "Title",
+                    hidden: (props) =>
+                        props.type === "woocommerce" || props.type === "google",
+                },
+                description: {
+                    type: ControlType.String,
+                    title: "Description",
+                    defaultValue: "Description",
+                    hidden: (props) =>
+                        props.type === "woocommerce" || props.type === "google",
+                },
+                rating: {
+                    type: ControlType.Number,
+                    title: "Rating",
+                    defaultValue: 5.0,
+                    min: 0,
+                    max: 5,
+                    step: 0.1,
+                    hidden: (props) => props.type !== "google",
+                },
+                reviewCount: {
+                    type: ControlType.Number,
+                    title: "Review Count",
+                    defaultValue: 32,
+                    hidden: (props) => props.type !== "google",
+                },
+            },
+        },
+    },
+    layout: {
+        type: ControlType.Enum,
+        title: "Layout",
+        options: ["grid", "flex"],
+        defaultValue: "grid",
+    },
+    columnsDesktop: {
+        type: ControlType.Number,
+        title: "Cols (Desktop)",
+        defaultValue: 5,
+        min: 1,
+        max: 6,
+    },
+    columnsTablet: {
+        type: ControlType.Number,
+        title: "Cols (Tablet)",
+        defaultValue: 3,
+        min: 1,
+        max: 5,
+    },
+    columnsMobile: {
+        type: ControlType.Number,
+        title: "Cols (Mobile)",
+        defaultValue: 1,
+        min: 1,
+        max: 5,
+    },
+    gap: {
+        type: ControlType.Number,
+        title: "Gap",
+        defaultValue: 20,
+        min: 0,
+        max: 80,
+    },
+    borderColor: {
+        type: ControlType.Color,
+        title: "Border Color",
+        defaultValue: "rgba(139, 92, 246, 0.3)",
+    },
+    borderThickness: {
+        type: ControlType.Number,
+        title: "Border Thickness",
+        defaultValue: 1,
+        min: 0,
+        max: 10,
+    },
+    borderRadius: {
+        type: ControlType.Number,
+        title: "Border Radius",
+        defaultValue: 16,
+        min: 0,
+        max: 40,
+    },
+    backgroundColor: {
+        type: ControlType.Color,
+        title: "Background",
+        defaultValue: "rgb(18, 25, 41)",
+    },
+    fontFamily: {
+        type: ControlType.String,
+        title: "Font Family",
+        defaultValue: "Inter, -apple-system, sans-serif",
+    },
+    fontColor: {
+        type: ControlType.Color,
+        title: "Font Color",
+        defaultValue: "#ffffff",
+    },
+    padding: {
+        type: ControlType.Number,
+        title: "Padding",
+        defaultValue: 16,
+        min: 8,
+        max: 40,
+    },
+    stagger: {
+        type: ControlType.Number,
+        title: "Stagger",
+        defaultValue: 0.1,
+        min: 0,
+        max: 0.5,
+        step: 0.05,
+    },
+    cardHeight: {
+        type: ControlType.Number,
+        title: "Card Height",
+        defaultValue: 110,
+        min: 80,
+        max: 200,
+    },
+})

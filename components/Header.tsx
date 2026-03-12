@@ -1,0 +1,113 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import styles from "./Header.module.css";
+
+const NAV_LINKS = [
+  { label: "Results", href: "#results" },
+  { label: "ROI Calculator", href: "#calculator" },
+  { label: "Our Pillars", href: "#pillars" },
+  { label: "How It Works", href: "#how" },
+  { label: "FAQs", href: "#faq" },
+];
+
+const CAL_LINK = "https://cal.com/andre-lopes/revenue-recovery-potential-call";
+
+export default function Header() {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [mobileOpen]);
+
+  return (
+    <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
+      <div className={styles.inner}>
+        {/* Logo */}
+        <a href="#" className={styles.logo}>
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <rect width="28" height="28" rx="6" fill="#814ac8" />
+            <path
+              d="M8 10h12M8 14h8M8 18h10"
+              stroke="#fff"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
+          <span>Thrive Flows</span>
+        </a>
+
+        {/* Desktop Nav */}
+        <nav className={styles.nav}>
+          {NAV_LINKS.map((link) => (
+            <a key={link.href} href={link.href} className={styles.navLink}>
+              {link.label}
+            </a>
+          ))}
+        </nav>
+
+        {/* CTA */}
+        <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className={`cta-button cta-button-sm ${styles.ctaDesktop}`}>
+          Book Your Free Strategy Call
+        </a>
+
+        {/* Mobile Toggle */}
+        <button
+          className={styles.burger}
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Toggle menu"
+        >
+          <span className={`${styles.burgerLine} ${mobileOpen ? styles.open1 : ""}`} />
+          <span className={`${styles.burgerLine} ${mobileOpen ? styles.open2 : ""}`} />
+          <span className={`${styles.burgerLine} ${mobileOpen ? styles.open3 : ""}`} />
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className={styles.mobileMenu}
+          >
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className={styles.mobileLink}
+                onClick={() => setMobileOpen(false)}
+              >
+                {link.label}
+              </a>
+            ))}
+            <a
+              href={CAL_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cta-button"
+              style={{ marginTop: 12, width: "100%", justifyContent: "center" }}
+              onClick={() => setMobileOpen(false)}
+            >
+              Book Your Free Strategy Call
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
+  );
+}

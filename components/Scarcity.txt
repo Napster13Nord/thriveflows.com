@@ -1,0 +1,284 @@
+// UrgencyBanner.tsx
+import * as React from "react"
+import { motion } from "framer-motion"
+import { addPropertyControls, ControlType } from "framer"
+
+type Props = {
+    spotsLeft: number
+    totalSpots: number
+    nextCohortDate: string
+    borderColor: string
+    borderThickness: number
+    borderRadius: number
+    backgroundColor: string
+    fontFamily: string
+    fontColor: string
+    accentColor: string
+    padding: number
+    showPulse: boolean
+}
+
+export default function UrgencyBanner(props: Props) {
+    const {
+        spotsLeft,
+        totalSpots,
+        nextCohortDate,
+        borderColor,
+        borderThickness,
+        borderRadius,
+        backgroundColor,
+        fontFamily,
+        fontColor,
+        accentColor,
+        padding,
+        showPulse,
+    } = props
+
+    const wrapperStyle: React.CSSProperties = {
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        padding: "24px 16px",
+        boxSizing: "border-box",
+    }
+
+    const cardStyle: React.CSSProperties = {
+        maxWidth: 600,
+        width: "100%",
+        borderRadius,
+        border: `${borderThickness}px solid ${borderColor}`,
+        background: backgroundColor,
+        padding,
+        boxSizing: "border-box",
+        fontFamily,
+        color: fontColor,
+        textAlign: "center",
+        position: "relative",
+        overflow: "hidden",
+    }
+
+    // Pulse animation for the warning icon
+    const pulseVariants = {
+        pulse: {
+            scale: [1, 1.1, 1],
+            opacity: [1, 0.8, 1],
+            transition: {
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+            },
+        },
+    }
+
+    return (
+        <div style={wrapperStyle}>
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                whileHover={{ scale: 1.01 }}
+                style={cardStyle}
+            >
+                {/* Warning Icon */}
+                <motion.div
+                    variants={pulseVariants}
+                    animate={showPulse ? "pulse" : ""}
+                    style={{
+                        fontSize: 32,
+                        marginBottom: 12,
+                    }}
+                >
+                    ⚠️
+                </motion.div>
+
+                {/* Main Heading */}
+                <div
+                    style={{
+                        fontSize: 24,
+                        fontWeight: 700,
+                        marginBottom: 8,
+                        color: accentColor,
+                    }}
+                >
+                    Limited Availability
+                </div>
+
+                {/* Spots Left */}
+                <div
+                    style={{
+                        fontSize: 20,
+                        fontWeight: 600,
+                        marginBottom: 16,
+                        color: fontColor,
+                    }}
+                >
+                    Only{" "}
+                    <span
+                        style={{
+                            color: accentColor,
+                            fontSize: 28,
+                            fontWeight: 700,
+                        }}
+                    >
+                        {spotsLeft}
+                    </span>{" "}
+                    Spots Left This Month
+                </div>
+
+                {/* Explanation */}
+                <div
+                    style={{
+                        fontSize: 15,
+                        opacity: 0.85,
+                        marginBottom: 12,
+                        lineHeight: 1.5,
+                    }}
+                >
+                    We cap at {totalSpots} stores/month to maintain quality.
+                </div>
+
+                {/* Next Cohort */}
+                <div
+                    style={{
+                        fontSize: 14,
+                        opacity: 0.7,
+                        fontStyle: "italic",
+                    }}
+                >
+                    Next cohort starts: <strong>{nextCohortDate}</strong>
+                </div>
+
+                {/* Progress Bar */}
+                <div
+                    style={{
+                        marginTop: 20,
+                        width: "100%",
+                        height: 8,
+                        backgroundColor: "rgba(255,255,255,0.1)",
+                        borderRadius: 4,
+                        overflow: "hidden",
+                    }}
+                >
+                    <motion.div
+                        initial={{ width: 0 }}
+                        animate={{
+                            width: `${((totalSpots - spotsLeft) / totalSpots) * 100}%`,
+                        }}
+                        transition={{
+                            duration: 1,
+                            ease: "easeOut",
+                            delay: 0.3,
+                        }}
+                        style={{
+                            height: "100%",
+                            background: `linear-gradient(90deg, ${accentColor}, ${borderColor})`,
+                            borderRadius: 4,
+                        }}
+                    />
+                </div>
+
+                {/* Spots Taken Label */}
+                <div
+                    style={{
+                        fontSize: 12,
+                        opacity: 0.6,
+                        marginTop: 8,
+                        textAlign: "right",
+                    }}
+                >
+                    {totalSpots - spotsLeft} / {totalSpots} spots taken
+                </div>
+            </motion.div>
+        </div>
+    )
+}
+
+// Defaults
+UrgencyBanner.defaultProps = {
+    spotsLeft: 7,
+    totalSpots: 10,
+    nextCohortDate: "April 15",
+    borderColor: "rgba(239, 68, 68, 0.4)",
+    borderThickness: 1,
+    borderRadius: 16,
+    backgroundColor: "rgb(18, 25, 41)",
+    fontFamily: "Inter, -apple-system, sans-serif",
+    fontColor: "#ffffff",
+    accentColor: "#ef4444",
+    padding: 32,
+    showPulse: true,
+}
+
+// Framer controls
+addPropertyControls(UrgencyBanner, {
+    spotsLeft: {
+        type: ControlType.Number,
+        title: "Spots Left",
+        defaultValue: 4,
+        min: 0,
+        max: 10,
+    },
+    totalSpots: {
+        type: ControlType.Number,
+        title: "Total Spots",
+        defaultValue: 10,
+        min: 1,
+        max: 20,
+    },
+    nextCohortDate: {
+        type: ControlType.String,
+        title: "Next Cohort Date",
+        defaultValue: "April 15",
+    },
+    borderColor: {
+        type: ControlType.Color,
+        title: "Border Color",
+        defaultValue: "rgba(239, 68, 68, 0.4)",
+    },
+    borderThickness: {
+        type: ControlType.Number,
+        title: "Border Thickness",
+        defaultValue: 1,
+        min: 0,
+        max: 10,
+    },
+    borderRadius: {
+        type: ControlType.Number,
+        title: "Border Radius",
+        defaultValue: 16,
+        min: 0,
+        max: 40,
+    },
+    backgroundColor: {
+        type: ControlType.Color,
+        title: "Background",
+        defaultValue: "rgb(18, 25, 41)",
+    },
+    fontFamily: {
+        type: ControlType.String,
+        title: "Font Family",
+        defaultValue: "Inter, -apple-system, sans-serif",
+    },
+    fontColor: {
+        type: ControlType.Color,
+        title: "Font Color",
+        defaultValue: "#ffffff",
+    },
+    accentColor: {
+        type: ControlType.Color,
+        title: "Accent Color",
+        defaultValue: "#ef4444",
+    },
+    padding: {
+        type: ControlType.Number,
+        title: "Padding",
+        defaultValue: 32,
+        min: 16,
+        max: 60,
+    },
+    showPulse: {
+        type: ControlType.Boolean,
+        title: "Pulse Animation",
+        defaultValue: true,
+    },
+})
