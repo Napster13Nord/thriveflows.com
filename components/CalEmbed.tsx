@@ -48,23 +48,36 @@ export default function CalEmbed() {
           transition={{ duration: 0.6 }}
           className={styles.inner}
         >
-          {/* Title and description centered */}
-          <div className={styles.header}>
-            <h2 className="section-title section-title-centered">
-              Stop Losing Sales Today — Book Your Free Strategy Call
-            </h2>
-            <p className="section-subtitle section-subtitle-centered" style={{ marginTop: 16 }}>
-              15 minutes. No sales pitch. Just a clear look at how much revenue
-              your store could be recovering — and whether our system fits.
-            </p>
-          </div>
-
-          {/* Cal.com embed below, full width */}
+          {/* Main container holding both text and calendar */}
           <div className={styles.calContainer}>
-            <div
-              id="my-cal-inline-revenue-recovery-potential-call"
-              className={styles.calEmbed}
-            />
+
+            <div className={styles.calGrid}>
+              {/* Left Side: Title and Description */}
+              <div className={styles.calTextSide}>
+                <h2 className={styles.calTitle}>
+                  Stop Losing Sales Today - Book Your Free Strategy Call
+                </h2>
+                
+                <h3 className={styles.calSubtitle}>What happens on the call:</h3>
+                <ol className={styles.calList}>
+                  <li>We calculate your exact revenue loss (2 min)</li>
+                  <li>Show you which automations fit your store (5 min)</li>
+                  <li>Give you a custom recovery forecast (3 min)</li>
+                  <li>Answer all your questions (5 min)</li>
+                  <li>You decide if it makes sense</li>
+                </ol>
+                <p className={styles.noPressure}>No pressure. Just value.</p>
+              </div>
+
+              {/* Right Side: Calendar embed */}
+              <div className={styles.calEmbedWrapper}>
+                <div
+                  id="my-cal-inline-revenue-recovery-potential-call"
+                  className={styles.calEmbed}
+                />
+              </div>
+            </div>
+
           </div>
         </motion.div>
       </div>
