@@ -1,6 +1,6 @@
 /* ===== DESIGN TOKENS ===== */
 :root {
-  --bg-primary: #050510;
+  --bg-primary: #000000;
   --bg-card: rgb(14, 17, 30);
   --bg-card-hover: rgb(20, 24, 40);
   --accent-purple: #7A5AF8;
