@@ -12,6 +12,7 @@
 
 .marqueeTrack {
   display: flex;
+  align-items: center;
   gap: 20px;
   width: max-content;
   animation: marqueeScroll 80s linear infinite;
@@ -94,7 +95,6 @@
   font-size: 14px;
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.65;
-  flex-grow: 1;
   margin: 0 0 20px;
 }
 
