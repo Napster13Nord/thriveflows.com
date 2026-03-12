@@ -41,17 +41,10 @@
 
 .reviewImg {
   display: block;
-  width: auto;
-  height: 280px;
-  object-fit: contain;
-  border-radius: 12px;
   -webkit-user-drag: none;
 }
 
 @media (max-width: 768px) {
-  .reviewImg {
-    height: 220px;
-  }
 
   .marqueeTrack {
     gap: 16px;
