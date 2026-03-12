@@ -35,7 +35,7 @@ export default function VideoSection() {
           <div className={styles.videoContainer}>
             <div className={styles.videoWrapper}>
               <iframe
-                src="https://player.vimeo.com/video/1050498029?badge=0&autopause=0&player_id=0&app_id=58479"
+                src="https://player.vimeo.com/video/1164786199?badge=0&autopause=0&player_id=0&app_id=58479"
                 title="ThriveFlows System Overview"
                 allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
                 allowFullScreen
@@ -44,17 +44,17 @@ export default function VideoSection() {
             </div>
           </div>
 
-          <a
-            href={CAL_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            data-cal-link="andre-lopes/revenue-recovery-potential-call"
+            data-cal-namespace="revenue-recovery-potential-call"
+            data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
             className={styles.ctaBtn}
           >
             Book Your Free Strategy Call
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
               <path d="M5 13L13 5M13 5H6M13 5V12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-          </a>
+          </button>
         </motion.div>
       </div>
     </section>
