@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import styles from "./Hero.module.css";
 import StatsCards from "./StatsCards";
-import { SplitText } from "./SplitText";
+import { BlurText } from "./BlurText";
 
 const CAL_LINK = "https://cal.com/andre-lopes/revenue-recovery-potential-call";
 
@@ -31,15 +31,15 @@ export default function Hero() {
 
           {/* Headline — 3 big bold lines */}
           <h1 className={styles.headline}>
-            <span className={styles.line1}>
-              <SplitText text="Done-For-You Email Automation" delay={30} />
-            </span>
-            <span className={styles.line2}>
-              <SplitText text="Recover 10-30% of Lost Revenue" delay={30} />
-            </span>
-            <span className={styles.line3}>
-              <SplitText text="Without Ads or Extra Work" delay={30} />
-            </span>
+            <div className={styles.line1}>
+              <BlurText text="Done-For-You Email Automation" delay={150} animateBy="words" />
+            </div>
+            <div className={styles.line2}>
+              <BlurText text="Recover 10-30% of Lost Revenue" delay={150} animateBy="words" />
+            </div>
+            <div className={styles.line3}>
+              <BlurText text="Without Ads or Extra Work" delay={150} animateBy="words" />
+            </div>
           </h1>
 
           {/* Description */}
