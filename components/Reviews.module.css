@@ -6,16 +6,16 @@
 .marqueeWrapper {
   overflow: hidden;
   width: 100%;
-  /* Fade edges */
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  /* Fade edges more noticeably */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
 }
 
 .marqueeTrack {
   display: flex;
   gap: 20px;
   width: max-content;
-  animation: marqueeScroll 40s linear infinite;
+  animation: marqueeScroll 80s linear infinite;
 }
 
 .marqueeTrack:hover {
@@ -34,31 +34,27 @@
 
 .card {
   flex-shrink: 0;
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
-  border: 1px solid var(--border-subtle);
-  background: var(--bg-card);
-  transition: border-color 0.3s ease;
-}
-
-.card:hover {
-  border-color: var(--border-purple);
+  display: flex;
 }
 
 .reviewImg {
   display: block;
   width: auto;
-  height: 320px;
-  object-fit: cover;
+  height: 280px;
+  object-fit: contain;
+  border-radius: 12px;
+  -webkit-user-drag: none;
 }
 
 @media (max-width: 768px) {
   .reviewImg {
-    height: 240px;
+    height: 220px;
   }
 
   .marqueeTrack {
-    gap: 12px;
-    animation-duration: 30s;
+    gap: 16px;
+    animation-duration: 60s;
   }
 }
