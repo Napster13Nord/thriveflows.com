@@ -6,9 +6,8 @@
 .marqueeWrapper {
   overflow: hidden;
   width: 100%;
-  /* Fade edges more noticeably */
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
 }
 
 .marqueeTrack {
@@ -27,30 +26,107 @@
     transform: translateX(0);
   }
   100% {
-    /* Move exactly half the total width since we duplicated the array */
     transform: translateX(calc(-50%));
   }
 }
 
+/* ── Card ── */
 .card {
   flex-shrink: 0;
-  border-radius: 12px;
-  overflow: hidden;
+  width: 340px;
+  background: #0e111e;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 24px;
   display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
-.reviewImg {
-  display: block;
-  width: auto;
-  height: 280px;
-  object-fit: contain;
-  border-radius: 12px;
-  -webkit-user-drag: none;
+/* ── Profile row ── */
+.profileRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 17px;
+  flex-shrink: 0;
+}
+
+.avatarPhoto {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.profileInfo {
+  flex: 1;
+}
+
+.profileName {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.profileTime {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 2px;
+}
+
+/* ── Review text ── */
+.reviewText {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.65;
+  flex-grow: 1;
+  margin: 0 0 20px;
+}
+
+/* ── Bottom row ── */
+.bottomRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+}
+
+.star {
+  font-size: 20px;
+  color: #FFC107;
+  line-height: 1;
+}
+
+.starEmpty {
+  font-size: 20px;
+  color: rgba(255, 193, 7, 0.3);
+  line-height: 1;
 }
 
 @media (max-width: 768px) {
-  .reviewImg {
-    height: 220px;
+  .card {
+    width: 280px;
+    padding: 20px;
   }
 
   .marqueeTrack {
