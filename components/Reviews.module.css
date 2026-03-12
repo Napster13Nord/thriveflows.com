@@ -1,28 +1,36 @@
 .section {
-  padding-top: 40px;
+  padding: 40px 0 60px;
+  overflow: hidden;
 }
 
-.header {
+.scrollContainer {
+  width: 100%;
+}
+
+.scrollTrack {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 36px;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 0 24px 16px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+.scrollTrack::-webkit-scrollbar {
+  display: none;
 }
 
 .card {
+  flex: 0 0 420px;
+  min-height: 280px;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: 14px;
-  padding: 20px;
+  border-radius: 16px;
+  padding: 28px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  scroll-snap-align: start;
   transition: border-color 0.3s ease;
 }
 
@@ -34,19 +42,28 @@
 .profileRow {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .avatar {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.avatarPhoto {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
   flex-shrink: 0;
 }
 
@@ -56,48 +73,52 @@
 }
 
 .profileName {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--text-primary);
 }
 
 .profileTime {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
-}
-
-.googleIcon {
-  flex-shrink: 0;
-}
-
-/* Stars */
-.stars {
-  display: flex;
-  gap: 2px;
-}
-
-.star {
-  font-size: 16px;
-  color: #FFC107;
-  line-height: 1;
 }
 
 /* Review text */
 .reviewText {
-  font-size: 14px;
+  font-size: 15px;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.7;
+  flex-grow: 1;
 }
 
-@media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
+/* Bottom row: stars left, Google G right */
+.bottomRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.stars {
+  display: flex;
+  gap: 3px;
+}
+
+.star {
+  font-size: 22px;
+  color: #FFC107;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .card {
+    flex: 0 0 300px;
+    min-height: 240px;
+    padding: 20px;
   }
-}
 
-@media (max-width: 640px) {
-  .grid {
-    grid-template-columns: 1fr;
+  .scrollTrack {
+    padding: 0 16px 12px;
     gap: 12px;
   }
 }
