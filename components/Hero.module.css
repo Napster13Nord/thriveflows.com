@@ -129,21 +129,21 @@
 
 .line1 {
   font-size: 48px;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1.15;
   color: var(--text-primary);
 }
 
 .line2 {
   font-size: 48px;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1.15;
   color: var(--text-primary);
 }
 
 .line3 {
   font-size: 48px;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1.15;
   color: var(--text-secondary);
 }
