@@ -48,36 +48,29 @@ export default function CalEmbed() {
           transition={{ duration: 0.6 }}
           className={styles.inner}
         >
-          {/* Main container holding both text and calendar */}
+          {/* Top text content outside the card */}
+          <div className={styles.textContent}>
+            <h2 className={styles.calTitle}>
+              Stop Losing Sales Today - Book Your Free Strategy Call
+            </h2>
+            
+            <h3 className={styles.calSubtitle}>What happens on the call:</h3>
+            <ol className={styles.calList}>
+              <li>We calculate your exact revenue loss (2 min)</li>
+              <li>Show you which automations fit your store (5 min)</li>
+              <li>Give you a custom recovery forecast (3 min)</li>
+              <li>Answer all your questions (5 min)</li>
+              <li>You decide if it makes sense</li>
+            </ol>
+            <p className={styles.noPressure}>No pressure. Just value.</p>
+          </div>
+
+          {/* Cal.com embed in its own full card */}
           <div className={styles.calContainer}>
-
-            <div className={styles.calGrid}>
-              {/* Left Side: Title and Description */}
-              <div className={styles.calTextSide}>
-                <h2 className={styles.calTitle}>
-                  Stop Losing Sales Today - Book Your Free Strategy Call
-                </h2>
-                
-                <h3 className={styles.calSubtitle}>What happens on the call:</h3>
-                <ol className={styles.calList}>
-                  <li>We calculate your exact revenue loss (2 min)</li>
-                  <li>Show you which automations fit your store (5 min)</li>
-                  <li>Give you a custom recovery forecast (3 min)</li>
-                  <li>Answer all your questions (5 min)</li>
-                  <li>You decide if it makes sense</li>
-                </ol>
-                <p className={styles.noPressure}>No pressure. Just value.</p>
-              </div>
-
-              {/* Right Side: Calendar embed */}
-              <div className={styles.calEmbedWrapper}>
-                <div
-                  id="my-cal-inline-revenue-recovery-potential-call"
-                  className={styles.calEmbed}
-                />
-              </div>
-            </div>
-
+            <div
+              id="my-cal-inline-revenue-recovery-potential-call"
+              className={styles.calEmbed}
+            />
           </div>
         </motion.div>
       </div>
