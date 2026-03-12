@@ -35,7 +35,7 @@ export default function VideoSection() {
           <div className={styles.videoContainer}>
             <div className={styles.videoWrapper}>
               <iframe
-                src="https://player.vimeo.com/video/1164786199?badge=0&autopause=0&player_id=0&app_id=58479"
+                src="https://player.vimeo.com/video/1173086461?badge=0&autopause=0&player_id=0&app_id=58479"
                 title="ThriveFlows System Overview"
                 allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
                 allowFullScreen
