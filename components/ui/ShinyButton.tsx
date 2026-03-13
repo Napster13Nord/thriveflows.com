@@ -73,7 +73,7 @@ export function ShinyButton({ children, onClick, className = "", alwaysActive = 
               var(--shiny-cta-highlight) calc(var(--gradient-percent) * 3),
               transparent calc(var(--gradient-percent) * 4)
             ) border-box;
-          box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
+          box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle), 0 0 20px 2px rgba(0, 0, 255, 0.4);
           transition: var(--transition);
           transition-property: --gradient-angle-offset, --gradient-percent, --gradient-shine;
           display: inline-flex;
@@ -146,10 +146,10 @@ export function ShinyButton({ children, onClick, className = "", alwaysActive = 
         }
 
         .shiny-cta span::before {
-          --size: calc(100% + 1rem);
+          --size: calc(100% + 2rem);
           width: var(--size);
           height: var(--size);
-          box-shadow: inset 0 -1ex 2rem 4px var(--shiny-cta-highlight);
+          box-shadow: inset 0 -1ex 2.5rem 2px var(--shiny-cta-highlight);
           opacity: 0;
           transition: opacity var(--transition);
           animation: calc(var(--duration) * 1.5) breathe linear infinite;
