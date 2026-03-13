@@ -59,9 +59,14 @@ export default function Header() {
         </nav>
 
         {/* CTA */}
-        <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" className={`cta-button cta-button-sm ${styles.ctaDesktop}`}>
+        <ShinyButton
+          data-cal-link="andre-lopes/revenue-recovery-potential-call"
+          data-cal-namespace="revenue-recovery-potential-call"
+          data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
+          className={styles.ctaDesktop}
+        >
           Book Your Free Strategy Call
-        </a>
+        </ShinyButton>
 
         {/* Mobile Toggle */}
         <button

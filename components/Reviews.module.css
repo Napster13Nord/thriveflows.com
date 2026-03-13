@@ -4,10 +4,18 @@
 }
 
 .marqueeWrapper {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   width: 100%;
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  padding: 10px 0 20px 0;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  scrollbar-width: none; /* Firefox */
+  -webkit-overflow-scrolling: touch;
+}
+
+.marqueeWrapper::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 
 .marqueeTrack {
@@ -15,20 +23,7 @@
   align-items: center;
   gap: 20px;
   width: max-content;
-  animation: marqueeScroll 80s linear infinite;
-}
-
-.marqueeTrack:hover {
-  animation-play-state: paused;
-}
-
-@keyframes marqueeScroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-50%));
-  }
+  padding: 0 5vw; /* space for starting and ending properly */
 }
 
 /* ── Card ── */
@@ -42,6 +37,8 @@
   display: flex;
   flex-direction: column;
   gap: 0;
+  scroll-snap-align: center;
+  user-select: none;
 }
 
 /* ── Profile row ── */
@@ -131,6 +128,5 @@
 
   .marqueeTrack {
     gap: 16px;
-    animation-duration: 60s;
   }
 }

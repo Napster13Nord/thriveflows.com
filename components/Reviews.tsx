@@ -83,8 +83,8 @@ const REVIEWS: Review[] = [
   },
 ];
 
-// Duplicate for seamless loop
-const MARQUEE_ITEMS = [...REVIEWS, ...REVIEWS];
+// Removed MARQUEE_ITEMS duplicate loop
+import { useRef, useState } from "react";
 
 const GoogleIcon = () => (
   <svg width="26" height="26" viewBox="0 0 24 24" aria-label="Google">
@@ -96,11 +96,42 @@ const GoogleIcon = () => (
 );
 
 export default function Reviews() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    if (!scrollRef.current) return;
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
+  };
+  
+  const handleMouseLeave = () => setIsDragging(false);
+  const handleMouseUp = () => setIsDragging(false);
+  
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 2; // Scroll-fast
+    scrollRef.current.scrollLeft = scrollLeft - walk;
+  };
+
   return (
     <section className={styles.section}>
-      <div className={styles.marqueeWrapper}>
+      <div 
+        className={styles.marqueeWrapper}
+        ref={scrollRef}
+        onMouseDown={handleMouseDown}
+        onMouseLeave={handleMouseLeave}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+        style={{ cursor: isDragging ? "grabbing" : "grab" }}
+      >
         <div className={styles.marqueeTrack}>
-          {MARQUEE_ITEMS.map((review, i) => (
+          {REVIEWS.map((review, i) => (
             <SpotlightCard key={i} className={styles.card} spotlightColor="rgba(139, 92, 246, 0.15)">
               {/* Profile row */}
               <div className={styles.profileRow}>
@@ -109,6 +140,7 @@ export default function Reviews() {
                     src={review.photoSrc}
                     alt={review.name}
                     className={styles.avatarPhoto}
+                    draggable={false} // Prevent image dragging interference
                   />
                 ) : (
                   <div

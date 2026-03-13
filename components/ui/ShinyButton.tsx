@@ -199,6 +199,13 @@ export function ShinyButton({ children, onClick, className = "", ...props }: Shi
             scale: 1.2;
           }
         }
+
+        @media (max-width: 768px) {
+          .shiny-cta {
+            font-size: 16px;
+            padding: 1rem 2rem;
+          }
+        }
       `}</style>
 
       <button className={`shiny-cta ${className}`} onClick={onClick} {...props}>

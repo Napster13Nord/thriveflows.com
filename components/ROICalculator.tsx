@@ -4,6 +4,7 @@ import { useState, useMemo, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import styles from "./ROICalculator.module.css";
 import SpotlightCard from "./SpotlightCard";
+import { ShinyButton } from "@/components/ui/ShinyButton";
 
 const PACKAGES = [
   { price: 300, automations: 3, key: "essential" },
@@ -200,17 +201,17 @@ export default function ROICalculator() {
           </div>
 
           <div className={styles.ctaRow}>
-            <a
-              href={CAL_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
+            <ShinyButton
+              data-cal-link="andre-lopes/revenue-recovery-potential-call"
+              data-cal-namespace="revenue-recovery-potential-call"
+              data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
               className="cta-button"
             >
               Book Your Free Strategy Call
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M6 10h8m0 0l-3-3m3 3l-3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-            </a>
+            </ShinyButton>
           </div>
         </motion.div>
       </div>
