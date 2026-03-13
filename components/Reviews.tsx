@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import styles from "./Reviews.module.css";
 import SpotlightCard from "./SpotlightCard";
 
@@ -84,8 +84,8 @@ const REVIEWS: Review[] = [
   },
 ];
 
-// Triplicated for seamless infinite loop (left, middle, right for drag safety)
-const MARQUEE_ITEMS = [...REVIEWS, ...REVIEWS, ...REVIEWS];
+// Duplicate for seamless infinite loop
+const MARQUEE_ITEMS = [...REVIEWS, ...REVIEWS];
 
 const GoogleIcon = () => (
   <svg width="26" height="26" viewBox="0 0 24 24" aria-label="Google">
@@ -98,103 +98,101 @@ const GoogleIcon = () => (
 
 export default function Reviews() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
 
-  const isHovered = useRef(false);
+  // All interaction state kept in refs to avoid re-renders that reset the animation
+  const isDraggingRef = useRef(false);
+  const isHoveredRef = useRef(false);
+  const dragStartXRef = useRef(0);
+  const dragScrollLeftRef = useRef(0);
 
+  // Single persistent animation loop — runs once on mount, never restarts
   useEffect(() => {
-    let animationId: number;
-    let lastTime = 0;
-    
-    // speed in pixels per millisecond
-    const speed = 0.05; 
+    const el = scrollRef.current;
+    if (!el) return;
 
-    const step = (time: number) => {
-      if (!lastTime) lastTime = time;
+    let rafId: number;
+    let lastTime = 0;
+    let initialized = false;
+    const speed = 0.04; // px per ms — gentle auto-scroll
+
+    const tick = (time: number) => {
+      if (!initialized) {
+        // Position in the middle of the first set so there's room to drag left
+        el.scrollLeft = el.scrollWidth / 2;
+        initialized = true;
+        lastTime = time;
+      }
+
       const dt = time - lastTime;
       lastTime = time;
 
-      if (!isDragging && !isHovered.current && scrollRef.current) {
-        let newScroll = scrollRef.current.scrollLeft + (speed * dt);
-        const maxScroll = scrollRef.current.scrollWidth / 3;
-        
-        // Loop seamlessly
-        if (newScroll >= maxScroll * 2) {
-          newScroll -= maxScroll;
-        } else if (newScroll <= 0) {
-          newScroll += maxScroll;
-        }
-        
-        scrollRef.current.scrollLeft = newScroll;
+      // Only auto-scroll when not interacting
+      if (!isDraggingRef.current && !isHoveredRef.current) {
+        el.scrollLeft += speed * dt;
       }
-      animationId = requestAnimationFrame(step);
+
+      // Seamless loop: when we pass the end of the first set, jump back
+      const halfScroll = el.scrollWidth / 2;
+      if (el.scrollLeft >= halfScroll) {
+        el.scrollLeft -= halfScroll;
+      } else if (el.scrollLeft <= 0) {
+        el.scrollLeft += halfScroll;
+      }
+
+      rafId = requestAnimationFrame(tick);
     };
-    
-    // Set initial scroll to middle chunk so we can drag left or right
-    if (scrollRef.current) {
-      scrollRef.current.scrollLeft = scrollRef.current.scrollWidth / 3;
-    }
 
-    animationId = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(animationId);
-  }, [isDragging]);
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, []); // empty deps — runs once, never restarts
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    if (!scrollRef.current) return;
-    setStartX(e.pageX - scrollRef.current.offsetLeft);
-    setScrollLeft(scrollRef.current.scrollLeft);
-  };
-  
-  const handleMouseLeave = () => {
-    setIsDragging(false);
-    isHovered.current = false;
-  };
-  
-  const handleMouseEnter = () => {
-    isHovered.current = true;
-  };
+  // --- Mouse drag handlers (desktop) ---
+  const onMouseDown = useCallback((e: React.MouseEvent) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    isDraggingRef.current = true;
+    el.style.cursor = "grabbing";
+    dragStartXRef.current = e.pageX;
+    dragScrollLeftRef.current = el.scrollLeft;
+  }, []);
 
-  const handleMouseUp = () => setIsDragging(false);
-  
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || !scrollRef.current) return;
+  const onMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!isDraggingRef.current) return;
+    const el = scrollRef.current;
+    if (!el) return;
     e.preventDefault();
-    const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - startX) * 1.5; // Drag speed
-    
-    let newScroll = scrollLeft - walk;
-    const maxScroll = scrollRef.current.scrollWidth / 3;
-    
-    // Seamless wrapping during drag
-    if (newScroll >= maxScroll * 2) {
-      newScroll -= maxScroll;
-      setStartX(e.pageX - scrollRef.current.offsetLeft);
-      setScrollLeft(newScroll);
-    } else if (newScroll <= 0) {
-      newScroll += maxScroll;
-      setStartX(e.pageX - scrollRef.current.offsetLeft);
-      setScrollLeft(newScroll);
-    }
-    
-    scrollRef.current.scrollLeft = newScroll;
-  };
+    const dx = e.pageX - dragStartXRef.current;
+    el.scrollLeft = dragScrollLeftRef.current - dx;
+  }, []);
+
+  const onMouseUp = useCallback(() => {
+    isDraggingRef.current = false;
+    if (scrollRef.current) scrollRef.current.style.cursor = "grab";
+  }, []);
+
+  const onMouseEnter = useCallback(() => {
+    isHoveredRef.current = true;
+  }, []);
+
+  const onMouseLeave = useCallback(() => {
+    isDraggingRef.current = false;
+    isHoveredRef.current = false;
+    if (scrollRef.current) scrollRef.current.style.cursor = "grab";
+  }, []);
 
   return (
     <section className={styles.section}>
-      <div 
+      <div
         className={styles.marqueeWrapper}
         ref={scrollRef}
-        onMouseDown={handleMouseDown}
-        onMouseLeave={handleMouseLeave}
-        onMouseEnter={handleMouseEnter}
-        onMouseUp={handleMouseUp}
-        onMouseMove={handleMouseMove}
-        style={{ cursor: isDragging ? "grabbing" : "grab" }}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        style={{ cursor: "grab" }}
       >
-        <div className={styles.marqueeTrack} style={{ pointerEvents: isDragging ? 'none' : 'auto' }}>
+        <div className={styles.marqueeTrack}>
           {MARQUEE_ITEMS.map((review, i) => (
             <SpotlightCard key={i} className={styles.card} spotlightColor="rgba(139, 92, 246, 0.15)">
               {/* Profile row */}
@@ -204,7 +202,7 @@ export default function Reviews() {
                     src={review.photoSrc}
                     alt={review.name}
                     className={styles.avatarPhoto}
-                    draggable={false} // Prevent image dragging interference
+                    draggable={false}
                   />
                 ) : (
                   <div
