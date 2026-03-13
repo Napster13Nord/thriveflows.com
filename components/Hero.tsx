@@ -19,8 +19,8 @@ export default function Hero() {
         <Silk
           speed={5}
           scale={1}
-          color="#150a24"
-          noiseIntensity={1.5}
+          color="#7A5AF8"
+          noiseIntensity={0}
           rotation={0}
         />
       </div>
