@@ -135,7 +135,7 @@
   }
 
   .ctaDesktop {
-    display: none;
+    display: none !important;
   }
 
   .burger {

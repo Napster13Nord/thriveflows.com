@@ -60,6 +60,7 @@ export default function Header() {
 
         {/* CTA */}
         <ShinyButton
+          alwaysActive
           data-cal-link="andre-lopes/revenue-recovery-potential-call"
           data-cal-namespace="revenue-recovery-potential-call"
           data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'

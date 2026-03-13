@@ -6,10 +6,11 @@ interface ShinyButtonProps {
   children: React.ReactNode
   onClick?: () => void
   className?: string
+  alwaysActive?: boolean
   [x: string]: any // allow other props like data-cal-link
 }
 
-export function ShinyButton({ children, onClick, className = "", ...props }: ShinyButtonProps) {
+export function ShinyButton({ children, onClick, className = "", alwaysActive = false, ...props }: ShinyButtonProps) {
   return (
     <>
       <style jsx>{`
@@ -163,18 +164,23 @@ export function ShinyButton({ children, onClick, className = "", ...props }: Shi
           animation-composition: add;
         }
 
+        .shiny-cta.active,
         .shiny-cta:is(:hover, :focus-visible) {
           --gradient-percent: 20%;
           --gradient-angle-offset: 95deg;
           --gradient-shine: var(--shiny-cta-highlight-subtle);
         }
 
+        .shiny-cta.active,
+        .shiny-cta.active::before,
+        .shiny-cta.active::after,
         .shiny-cta:is(:hover, :focus-visible),
         .shiny-cta:is(:hover, :focus-visible)::before,
         .shiny-cta:is(:hover, :focus-visible)::after {
           animation-play-state: running;
         }
 
+        .shiny-cta.active span::before,
         .shiny-cta:is(:hover, :focus-visible) span::before {
           opacity: 1;
         }
@@ -208,7 +214,7 @@ export function ShinyButton({ children, onClick, className = "", ...props }: Shi
         }
       `}</style>
 
-      <button className={`shiny-cta ${className}`} onClick={onClick} {...props}>
+      <button className={`shiny-cta ${alwaysActive ? 'active' : ''} ${className}`} onClick={onClick} {...props}>
         <span>{children}</span>
       </button>
     </>

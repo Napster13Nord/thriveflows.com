@@ -96,7 +96,7 @@ function WooCommerceCard() {
   return (
     <div className={styles.cardInner}>
       <img
-        src="/images/woocommerce-logo.png"
+        src="/woo-white.webp"
         alt="WooCommerce"
         className={styles.wooLogo}
         onError={(e) => {
