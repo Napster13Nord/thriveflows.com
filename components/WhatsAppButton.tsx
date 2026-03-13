@@ -11,8 +11,9 @@ export default function WhatsAppButton() {
       chatMessage="Hi there! 👋 How can I help you recover lost revenue?"
       statusMessage="Typically replies within minutes"
       placeholder="Type a message..."
-      allowClickAway
       darkMode
+      notification={false}
+      allowClickAway={false}
     />
   );
 }
