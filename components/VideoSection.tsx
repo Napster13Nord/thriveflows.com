@@ -40,6 +40,7 @@ export default function VideoSection() {
                 title="ThriveFlows System Overview"
                 allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
                 allowFullScreen
+                loading="lazy"
                 className={styles.videoIframe}
               />
             </div>
