@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./Header.module.css";
+import { ShinyButton } from "@/components/ui/ShinyButton";
 
 const NAV_LINKS = [
   { label: "Results", href: "#results" },
@@ -94,19 +95,17 @@ export default function Header() {
                 {link.label}
               </a>
             ))}
-            <button
-            data-cal-link="andre-lopes/revenue-recovery-potential-call"
-            data-cal-namespace="revenue-recovery-potential-call"
-            data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
-            className="cta-button cta-button-sm"
-            style={{ marginTop: 12, width: "100%", justifyContent: "center" }}
-            onClick={() => setMobileOpen(false)}
-          >
-            Book Your Free Strategy Call
-            <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
-              <path d="M5 13L13 5M13 5H6M13 5V12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
+            <ShinyButton
+              data-cal-link="andre-lopes/revenue-recovery-potential-call"
+              data-cal-namespace="revenue-recovery-potential-call"
+              data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
+              onClick={() => setMobileOpen(false)}
+            >
+              Book Your Free Strategy Call
+              <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
+                <path d="M5 13L13 5M13 5H6M13 5V12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </ShinyButton>
           </motion.div>
         )}
       </AnimatePresence>

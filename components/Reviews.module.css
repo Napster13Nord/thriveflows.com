@@ -34,7 +34,7 @@
 /* ── Card ── */
 .card {
   flex-shrink: 0;
-  width: 440px;
+  width: 550px;
   background: #0e111e;
   border: 1px solid rgba(139, 92, 246, 0.3);
   border-radius: 16px;
