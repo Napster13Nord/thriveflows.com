@@ -201,3 +201,9 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
   }
 }
+
+/* ===== WHATSAPP WIDGET OVERRIDES ===== */
+:global(.floating-whatsapp) > div:first-child > span {
+  display: none !important;
+  animation: none !important;
+}
