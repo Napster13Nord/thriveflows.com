@@ -22,9 +22,6 @@ export default function Footer() {
               Email Automation System for E-commerce. We turn lost visitors into
               recurring customers automatically.
             </p>
-            <p className={styles.brandRegion}>
-              Serving stores in Europe, the United Arab Emirates, and South Africa.
-            </p>
           </div>
 
           {/* Links */}
