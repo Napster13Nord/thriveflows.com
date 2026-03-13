@@ -10,7 +10,7 @@ interface ShinyButtonProps {
   [x: string]: any // allow other props like data-cal-link
 }
 
-export function ShinyButton({ children, onClick, className = "", alwaysActive = false, ...props }: ShinyButtonProps) {
+export function ShinyButton({ children, onClick, className = "", alwaysActive = true, ...props }: ShinyButtonProps) {
   return (
     <>
       <style jsx>{`
