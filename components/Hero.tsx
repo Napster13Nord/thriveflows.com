@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import styles from "./Hero.module.css";
 import StatsCards from "./StatsCards";
 import { BlurText } from "./BlurText";
+import { Canvas } from "@react-three/fiber";
+import { Galaxy } from "./Galaxy";
 
 const CAL_LINK = "https://cal.com/andre-lopes/revenue-recovery-potential-call";
 
@@ -12,9 +14,13 @@ export default function Hero() {
     <section className={styles.hero}>
       {/* Star particles */}
       <div className={styles.stars} />
-      {/* Central purple nebula glow */}
-      <div className={styles.nebula} />
-      <div className={styles.nebulaSecondary} />
+      
+      {/* Galaxy Background */}
+      <div className={styles.galaxyContainer}>
+        <Canvas camera={{ position: [0, 2, 5], fov: 75 }}>
+          <Galaxy />
+        </Canvas>
+      </div>
 
       <div className={styles.inner}>
         <motion.div
