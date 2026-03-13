@@ -4,8 +4,7 @@ import { motion } from "framer-motion";
 import styles from "./Hero.module.css";
 import StatsCards from "./StatsCards";
 import { BlurText } from "./BlurText";
-import { Canvas } from "@react-three/fiber";
-import { Galaxy } from "./Galaxy";
+import Galaxy from "./Galaxy";
 
 const CAL_LINK = "https://cal.com/andre-lopes/revenue-recovery-potential-call";
 
@@ -17,9 +16,20 @@ export default function Hero() {
       
       {/* Galaxy Background */}
       <div className={styles.galaxyContainer}>
-        <Canvas camera={{ position: [0, 2, 5], fov: 75 }}>
-          <Galaxy />
-        </Canvas>
+        <Galaxy 
+          mouseRepulsion
+          mouseInteraction
+          density={1}
+          glowIntensity={0.3}
+          saturation={0}
+          hueShift={140}
+          twinkleIntensity={0.3}
+          rotationSpeed={0.1}
+          repulsionStrength={2}
+          autoCenterRepulsion={0}
+          starSpeed={0.5}
+          speed={1}
+        />
       </div>
 
       <div className={styles.inner}>
