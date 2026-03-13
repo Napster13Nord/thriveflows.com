@@ -39,6 +39,7 @@
 
 .stepBadge {
   display: inline-block;
+  width: -moz-fit-content;
   width: fit-content;
   font-size: 14px;
   font-weight: 700;
@@ -48,6 +49,7 @@
   background: rgba(129, 74, 200, 0.12);
   padding: 4px 12px;
   border-radius: 100px;
+  margin-bottom: 20px;
 }
 
 .cardTitle {
