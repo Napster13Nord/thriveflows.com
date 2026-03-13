@@ -37,15 +37,7 @@ export default function Header() {
       <div className={styles.inner}>
         {/* Logo */}
         <a href="#" className={styles.logo}>
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            <rect width="28" height="28" rx="6" fill="#814ac8" />
-            <path
-              d="M8 10h12M8 14h8M8 18h10"
-              stroke="#fff"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
+          <img src="/logo.webp" alt="Thrive Flows Logo" width={28} height={28} style={{ borderRadius: '6px' }} />
           <span>Thrive Flows</span>
         </a>
 

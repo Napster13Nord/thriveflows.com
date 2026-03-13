@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   title: "Increase Sales by 10-30% Without Ads | Email Automation for WooCommerce | ThriveFlows",
   description:
     "Done-for-you email automation for WooCommerce stores. Recover sales and increase revenue 10-30%. You only pay if it generates at least 10% of sales. 30-day free trial.",
+  icons: {
+    icon: "/logo.webp",
+  },
   openGraph: {
     title: "Increase Sales by 10-30% Without Ads | Email Automation for WooCommerce | ThriveFlows",
     description:

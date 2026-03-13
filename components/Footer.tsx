@@ -15,15 +15,7 @@ export default function Footer() {
           {/* Brand */}
           <div className={styles.brand}>
             <a href="#" className={styles.logo}>
-              <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
-                <rect width="28" height="28" rx="6" fill="#814ac8" />
-                <path
-                  d="M8 10h12M8 14h8M8 18h10"
-                  stroke="#fff"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
+              <img src="/logo.webp" alt="Thrive Flows Logo" width={24} height={24} style={{ borderRadius: '6px' }} />
               <span>Thrive Flows</span>
             </a>
             <p className={styles.brandDesc}>
