@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import styles from "./Hero.module.css";
 import StatsCards from "./StatsCards";
 import { BlurText } from "./BlurText";
-import Orb from "./Orb";
+import Silk from "./Silk";
 
 const CAL_LINK = "https://cal.com/andre-lopes/revenue-recovery-potential-call";
 
@@ -14,14 +14,14 @@ export default function Hero() {
       {/* Star particles */}
       <div className={styles.stars} />
       
-      {/* Galaxy Background (now Orb) */}
+      {/* Galaxy Background */}
       <div className={styles.galaxyContainer}>
-        <Orb
-          hoverIntensity={0.14}
-          rotateOnHover={false}
-          hue={270}
-          forceHoverState={false}
-          backgroundColor="transparent"
+        <Silk
+          speed={5}
+          scale={1}
+          color="#150a24"
+          noiseIntensity={1.5}
+          rotation={0}
         />
       </div>
 
