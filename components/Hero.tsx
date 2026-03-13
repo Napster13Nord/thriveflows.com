@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import styles from "./Hero.module.css";
 import StatsCards from "./StatsCards";
 import { BlurText } from "./BlurText";
-import Galaxy from "./Galaxy";
+import Silk from "./Silk";
 
 const CAL_LINK = "https://cal.com/andre-lopes/revenue-recovery-potential-call";
 
@@ -16,19 +16,12 @@ export default function Hero() {
       
       {/* Galaxy Background */}
       <div className={styles.galaxyContainer}>
-        <Galaxy 
-          mouseRepulsion
-          mouseInteraction
-          density={1}
-          glowIntensity={0.3}
-          saturation={0}
-          hueShift={140}
-          twinkleIntensity={0.3}
-          rotationSpeed={0.1}
-          repulsionStrength={2}
-          autoCenterRepulsion={0}
-          starSpeed={0.5}
-          speed={1}
+        <Silk
+          speed={5}
+          scale={1}
+          color="#150a24"
+          noiseIntensity={1.5}
+          rotation={0}
         />
       </div>
 
