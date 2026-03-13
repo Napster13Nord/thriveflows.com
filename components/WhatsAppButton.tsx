@@ -1,6 +1,10 @@
 "use client";
 
+import { useState } from "react";
+
 export default function WhatsAppButton() {
+  const [hovered, setHovered] = useState(false);
+
   return (
     <a
       href="https://wa.me/3584578337530"
@@ -9,7 +13,7 @@ export default function WhatsAppButton() {
       style={{
         position: "fixed",
         bottom: "20px",
-        left: "20px",
+        right: "20px",
         backgroundColor: "#25D366",
         color: "white",
         borderRadius: "50%",
@@ -18,14 +22,50 @@ export default function WhatsAppButton() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
         zIndex: 1000,
         transition: "transform 0.3s ease",
+        transform: hovered ? "scale(1.1)" : "scale(1)",
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
-      onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       aria-label="Contact us on WhatsApp"
     >
+      {/* Tooltip */}
+      <span
+        style={{
+          position: "absolute",
+          right: "72px",
+          top: "50%",
+          transform: "translateY(-50%)",
+          backgroundColor: "#1a1a2e",
+          color: "#fff",
+          padding: "8px 14px",
+          borderRadius: "8px",
+          fontSize: "14px",
+          fontWeight: 500,
+          whiteSpace: "nowrap",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
+          opacity: hovered ? 1 : 0,
+          pointerEvents: "none",
+          transition: "opacity 0.3s ease",
+        }}
+      >
+        Need help? Chat with us! 💬
+        {/* Arrow */}
+        <span
+          style={{
+            position: "absolute",
+            right: "-6px",
+            top: "50%",
+            transform: "translateY(-50%) rotate(45deg)",
+            width: "12px",
+            height: "12px",
+            backgroundColor: "#1a1a2e",
+          }}
+        />
+      </span>
+
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
