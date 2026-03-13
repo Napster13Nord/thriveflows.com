@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import Image from "next/image";
 import styles from "./StatsCards.module.css";
 import SpotlightCard from "./SpotlightCard";
 
@@ -96,12 +95,9 @@ function NormalCard({ card, shouldAnimate }: { card: CardItem; shouldAnimate: bo
 function WooCommerceCard() {
   return (
     <div className={styles.cardInner}>
-      <Image
+      <img
         src="/woo-white.webp"
         alt="WooCommerce"
-        width={180}
-        height={40}
-        priority={true}
         className={styles.wooLogo}
         onError={(e) => {
           // Fallback to text if image doesn't load

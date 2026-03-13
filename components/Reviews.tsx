@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useEffect, useCallback } from "react";
-import Image from "next/image";
 import styles from "./Reviews.module.css";
 import SpotlightCard from "./SpotlightCard";
 
@@ -199,14 +198,11 @@ export default function Reviews() {
               {/* Profile row */}
               <div className={styles.profileRow}>
                 {review.photoSrc ? (
-                  <Image
+                  <img
                     src={review.photoSrc}
                     alt={review.name}
-                    width={42}
-                    height={42}
                     className={styles.avatarPhoto}
                     draggable={false}
-                    loading="lazy"
                   />
                 ) : (
                   <div

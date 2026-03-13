@@ -1,13 +1,11 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import styles from "./Hero.module.css";
 import StatsCards from "./StatsCards";
 import { BlurText } from "./BlurText";
+import Silk from "./Silk";
 import { ShinyButton } from "@/components/ui/ShinyButton";
-
-const Silk = dynamic(() => import("./Silk"), { ssr: false });
 
 const CAL_LINK = "https://cal.com/andre-lopes/revenue-recovery-potential-call";
 
