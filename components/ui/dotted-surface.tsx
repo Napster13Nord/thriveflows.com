@@ -10,7 +10,7 @@ export function DottedSurface({ style, ...props }: DottedSurfaceProps) {
 
   useEffect(() => {
     // Only render on desktop
-    if (window.innerWidth < 768) return;
+    if (window.innerWidth < 1024) return;
 
     const container = containerRef.current;
     if (!container) return;
@@ -58,7 +58,7 @@ export function DottedSurface({ style, ...props }: DottedSurfaceProps) {
       size: 8,
       vertexColors: true,
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.25,
       sizeAttenuation: true,
     });
 
