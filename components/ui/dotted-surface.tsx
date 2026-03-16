@@ -6,43 +6,42 @@ type DottedSurfaceProps = Omit<React.ComponentProps<'div'>, 'ref'>;
 
 export function DottedSurface({ className, style, ...props }: DottedSurfaceProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const sceneRef = useRef<{
-    scene: THREE.Scene;
-    camera: THREE.PerspectiveCamera;
-    renderer: THREE.WebGLRenderer;
-    particles: THREE.Points[];
-    animationId: number;
-    count: number;
-  } | null>(null);
+  const animationIdRef = useRef<number>(0);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const container = containerRef.current;
+    if (!container) return;
 
     const SEPARATION = 150;
     const AMOUNTX = 40;
     const AMOUNTY = 60;
 
+    const getSize = () => ({
+      w: container.offsetWidth,
+      h: container.offsetHeight,
+    });
+
+    let { w, h } = getSize();
+
     // Scene setup
     const scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0xffffff, 2000, 10000);
 
-    const camera = new THREE.PerspectiveCamera(
-      60,
-      window.innerWidth / window.innerHeight,
-      1,
-      10000,
-    );
+    const camera = new THREE.PerspectiveCamera(60, w / h, 1, 10000);
     camera.position.set(0, 355, 1220);
 
-    const renderer = new THREE.WebGLRenderer({
-      alpha: true,
-      antialias: true,
-    });
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(scene.fog.color, 0);
+    renderer.setSize(w, h);
+    renderer.setClearColor(0x000000, 0);
 
-    containerRef.current.appendChild(renderer.domElement);
+    // Make canvas fill the container exactly
+    const canvas = renderer.domElement;
+    canvas.style.position = 'absolute';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    container.appendChild(canvas);
 
     // Build particle geometry
     const positions: number[] = [];
@@ -52,18 +51,13 @@ export function DottedSurface({ className, style, ...props }: DottedSurfaceProps
     for (let ix = 0; ix < AMOUNTX; ix++) {
       for (let iy = 0; iy < AMOUNTY; iy++) {
         const x = ix * SEPARATION - (AMOUNTX * SEPARATION) / 2;
-        const y = 0;
         const z = iy * SEPARATION - (AMOUNTY * SEPARATION) / 2;
-        positions.push(x, y, z);
-        // White/light-grey particles for dark background
-        colors.push(200, 200, 200);
+        positions.push(x, 0, z);
+        colors.push(200, 200, 200); // light grey/white for dark bg
       }
     }
 
-    geometry.setAttribute(
-      'position',
-      new THREE.Float32BufferAttribute(positions, 3),
-    );
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
     geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
@@ -78,72 +72,59 @@ export function DottedSurface({ className, style, ...props }: DottedSurfaceProps
     scene.add(points);
 
     let count = 0;
-    let animationId: number = 0;
 
     const animate = () => {
-      animationId = requestAnimationFrame(animate);
+      animationIdRef.current = requestAnimationFrame(animate);
 
-      const positionAttribute = geometry.attributes.position;
-      const posArr = positionAttribute.array as Float32Array;
+      const posAttr = geometry.attributes.position;
+      const posArr = posAttr.array as Float32Array;
 
       let i = 0;
       for (let ix = 0; ix < AMOUNTX; ix++) {
         for (let iy = 0; iy < AMOUNTY; iy++) {
-          const index = i * 3;
-          posArr[index + 1] =
+          posArr[i * 3 + 1] =
             Math.sin((ix + count) * 0.3) * 50 +
             Math.sin((iy + count) * 0.5) * 50;
           i++;
         }
       }
 
-      positionAttribute.needsUpdate = true;
+      posAttr.needsUpdate = true;
       renderer.render(scene, camera);
       count += 0.1;
     };
 
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      ({ w, h } = getSize());
+      camera.aspect = w / h;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setSize(w, h);
     };
 
-    window.addEventListener('resize', handleResize);
+    const resizeObserver = new ResizeObserver(handleResize);
+    resizeObserver.observe(container);
+
     animate();
 
-    sceneRef.current = {
-      scene,
-      camera,
-      renderer,
-      particles: [points],
-      animationId,
-      count,
-    };
-
     return () => {
-      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(animationIdRef.current);
+      resizeObserver.disconnect();
 
-      if (sceneRef.current) {
-        cancelAnimationFrame(sceneRef.current.animationId);
-
-        sceneRef.current.scene.traverse((object) => {
-          if (object instanceof THREE.Points) {
-            object.geometry.dispose();
-            if (Array.isArray(object.material)) {
-              object.material.forEach((mat) => mat.dispose());
-            } else {
-              object.material.dispose();
-            }
+      scene.traverse((object) => {
+        if (object instanceof THREE.Points) {
+          object.geometry.dispose();
+          if (Array.isArray(object.material)) {
+            object.material.forEach((mat) => mat.dispose());
+          } else {
+            object.material.dispose();
           }
-        });
-
-        sceneRef.current.renderer.dispose();
-
-        if (containerRef.current && sceneRef.current.renderer.domElement) {
-          containerRef.current.removeChild(
-            sceneRef.current.renderer.domElement,
-          );
         }
+      });
+
+      renderer.dispose();
+
+      if (container.contains(canvas)) {
+        container.removeChild(canvas);
       }
     };
   }, []);
@@ -151,7 +132,9 @@ export function DottedSurface({ className, style, ...props }: DottedSurfaceProps
   return (
     <div
       ref={containerRef}
-      className={['pointer-events-none absolute inset-0', className].filter(Boolean).join(' ')}
+      className={['pointer-events-none absolute inset-0 overflow-hidden', className]
+        .filter(Boolean)
+        .join(' ')}
       style={{ zIndex: 0, ...style }}
       {...props}
     />
