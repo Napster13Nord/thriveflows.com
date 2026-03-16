@@ -5,14 +5,15 @@ import styles from "./Hero.module.css";
 import StatsCards from "./StatsCards";
 import { BlurText } from "./BlurText";
 import { ShinyButton } from "@/components/ui/ShinyButton";
+import { DottedSurface } from "@/components/ui/dotted-surface";
 
 const CAL_LINK = "https://cal.com/andre-lopes/revenue-recovery-potential-call";
 
 export default function Hero() {
   return (
     <section className={styles.hero}>
-      {/* Star particles */}
-      <div className={styles.stars} />
+      {/* Animated dotted surface background */}
+      <DottedSurface />
       
       <div className={styles.inner}>
         <motion.div
