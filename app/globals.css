@@ -211,3 +211,10 @@ h1, h2, h3, h4, h5, h6 {
 [class*="notificationIndicator"] {
   display: none !important;
 }
+
+/* ===== DOTTED SURFACE (desktop only) ===== */
+@media (max-width: 768px) {
+  .dotted-surface-bg {
+    display: none !important;
+  }
+}
