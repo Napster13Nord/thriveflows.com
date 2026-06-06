@@ -6,34 +6,29 @@ import styles from "./FAQ.module.css";
 
 const FAQ_ITEMS = [
   {
-    question: "How do the automations actually work?",
+    question: "Como funciona a garantia de resultados?",
     answer:
-      "Our system integrates directly with your WooCommerce store and email platform. It automatically tracks customer behavior — abandoned carts, browsed products, purchase history — and sends personalized, pre-written email sequences to recover those lost sales. Everything runs on autopilot once installed.",
+      "O sistema é desenhado para gerar reuniões qualificadas. Se nos primeiros 30 dias não conseguirmos gerar resultados mensuráveis, devolvemos o seu investimento. A nossa receita depende do seu sucesso — estamos 100% alinhados com os seus objetivos.",
   },
   {
-    question: "What do I need to get started with the implementation?",
+    question: "Quanto tempo demora a implementação completa?",
     answer:
-      "Just a 15-minute strategy call to understand your store's needs. After that, we handle everything: from email copywriting to template design to automation setup. You'll just need to approve the emails before launch.",
+      "A implementação completa demora entre 7 a 14 dias. Isso inclui a definição do ICP, criação das listas, setup da infraestrutura de email, escrita das sequências e lançamento das primeiras campanhas. Após o lançamento, as primeiras respostas costumam chegar na primeira semana.",
   },
   {
-    question: "Do you do everything, or do I need a technical team?",
+    question: "Funciona no meu setor de atividade?",
     answer:
-      "We do everything. You don't need any technical team, developer, or email marketing specialist. Our team handles the complete setup, from strategy to launch, and ongoing optimization.",
+      "O sistema funciona para qualquer negócio B2B que venda serviços ou produtos de médio a alto valor. Já implementamos com sucesso em setores como tecnologia, consultoria, agências, SaaS, e-commerce B2B, indústria e muitos outros. Na consultoria gratuita, analisamos se o sistema é adequado para o seu caso específico.",
   },
   {
-    question: "Why do you only charge if it reaches at least 10% of total sales?",
+    question: "Preciso de conhecimentos técnicos para gerir o sistema?",
     answer:
-      "Because we believe in results. Our pricing model means we only succeed when you succeed. If our system doesn't generate at least 10% of your total sales, you don't pay. This aligns our incentives with yours — we're motivated to maximize your revenue recovery.",
+      "Não. O sistema é 100% Done-For-You. Nós cuidamos de toda a parte técnica — desde a infraestrutura de emails até à criação de copy, personalização com IA e monitoramento das campanhas. A única coisa que precisa fazer é responder às leads qualificadas que chegam à sua caixa de entrada.",
   },
   {
-    question: "What if it doesn't reach 10% of sales? Do I pay anything?",
+    question: "E se os emails forem para spam ou a conta for suspensa?",
     answer:
-      "No. If our automations don't generate at least 10% of your total sales, you pay nothing. The 30-day free trial gives you zero risk to see the results firsthand.",
-  },
-  {
-    question: "How long does it take to see results?",
-    answer:
-      "Most stores see their first recovered sales within the first week of launch. The full system is installed in 7-10 days, and results compound over time as we optimize the automations based on real data from your store.",
+      "Utilizamos as melhores práticas de deliverability: domínios dedicados com warm-up progressivo, rotação de contas, volume controlado e monitoramento contínuo da reputação. Cada conta é configurada com SPF, DKIM e DMARC. O risco de suspensão é mínimo porque seguimos todas as diretrizes dos provedores de email.",
   },
 ];
 
@@ -89,10 +84,14 @@ export default function FAQ() {
           transition={{ duration: 0.6 }}
         >
           <div className={styles.header}>
-            <span className="section-badge">FAQs</span>
+            <span className="section-badge">FAQ</span>
             <h2 className="section-title section-title-centered">
-              Get Your Questions Answered Before Taking the Next Step
+              Tire as suas dúvidas antes<br />
+              de dar o próximo passo
             </h2>
+            <p className="section-subtitle section-subtitle-centered">
+              Aqui estão as respostas às perguntas mais comuns sobre implementação, resultados e suporte.
+            </p>
           </div>
 
           <div className={styles.list}>

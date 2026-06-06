@@ -16,7 +16,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 
@@ -49,7 +49,7 @@
   background: rgba(129, 74, 200, 0.12);
   padding: 4px 12px;
   border-radius: 100px;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
 }
 
 .cardTitle {
@@ -59,33 +59,49 @@
 }
 
 .cardDesc {
-  font-size: 16px;
+  font-size: 15px;
   color: var(--text-secondary);
   line-height: 1.6;
-  flex: 1;
 }
 
-.youProvide {
+/* New: "O que eu faço:" section with bullet list */
+.listSection {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  margin-top: 8px;
-  padding-top: 12px;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 16px;
   border-top: 1px solid var(--border-subtle);
 }
 
-.youProvideLabel {
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: var(--text-muted);
-  font-weight: 600;
+.listLabel {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
-.youProvideValue {
-  font-size: 15px;
-  color: var(--accent-purple);
-  font-weight: 600;
+.bulletList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bulletItem {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  padding-left: 16px;
+  position: relative;
+}
+
+.bulletItem::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
 }
 
 .ctaRow {
@@ -114,12 +130,6 @@
 .ctaBtn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(122, 90, 248, 0.45);
-}
-
-@media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 @media (max-width: 640px) {

@@ -21,17 +21,17 @@ export default function CalEmbed() {
       const Cal = (window as any).Cal;
       if (!Cal) return;
 
-      Cal("init", "revenue-recovery-potential-call", {
+      Cal("init", "consultoria-gratuita-cold-email-system", {
         origin: "https://app.cal.com",
       });
 
-      Cal.ns["revenue-recovery-potential-call"]("inline", {
-        elementOrSelector: "#my-cal-inline-revenue-recovery-potential-call",
+      Cal.ns["consultoria-gratuita-cold-email-system"]("inline", {
+        elementOrSelector: "#my-cal-inline-consultoria-gratuita-cold-email-system",
         config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
-        calLink: "andre-lopes/revenue-recovery-potential-call",
+        calLink: "andre-lopes/consultoria-gratuita-cold-email-system",
       });
 
-      Cal.ns["revenue-recovery-potential-call"]("ui", {
+      Cal.ns["consultoria-gratuita-cold-email-system"]("ui", {
         hideEventTypeDetails: false,
         layout: "month_view",
       });
@@ -55,26 +55,18 @@ export default function CalEmbed() {
             {/* Top Text Side */}
             <div className={styles.calTextSide}>
               <h2 className={styles.calTitle}>
-                Stop Losing Sales Today - Book Your Free Strategy Call
+                Pronto Para Colocar Sua Aquisição de Clientes no Piloto Automático?
               </h2>
-              
-              <div className={styles.calContentWrapper}>
-                <h3 className={styles.calSubtitle}>What happens on the call:</h3>
-                <ol className={styles.calList}>
-                  <li>We calculate your exact revenue loss (2 min)</li>
-                  <li>Show you which automations fit your store (5 min)</li>
-                  <li>Give you a custom recovery forecast (3 min)</li>
-                  <li>Answer all your questions (5 min)</li>
-                  <li>You decide if it makes sense</li>
-                </ol>
-                <p className={styles.noPressure}>No pressure. Just value.</p>
-              </div>
+              <p className={styles.calSubtitleText}>
+                Agende uma conversa rápida para entender como o sistema pode se adaptar ao seu negócio e
+                começar a gerar reuniões já nas próximas semanas.
+              </p>
             </div>
 
             {/* Bottom Calendar embed */}
             <div className={styles.calEmbedWrapper}>
               <div
-                id="my-cal-inline-revenue-recovery-potential-call"
+                id="my-cal-inline-consultoria-gratuita-cold-email-system"
                 className={styles.calEmbed}
               />
             </div>

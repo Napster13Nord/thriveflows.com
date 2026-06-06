@@ -33,8 +33,16 @@
   font-weight: 700;
   color: #fff;
   line-height: 1.25;
-  margin-bottom: 40px;
+  margin-bottom: 16px;
   max-width: 800px;
+}
+
+.calSubtitleText {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  max-width: 700px;
+  margin-bottom: 0;
 }
 
 .calContentWrapper {

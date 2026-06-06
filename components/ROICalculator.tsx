@@ -7,35 +7,37 @@ import SpotlightCard from "./SpotlightCard";
 import { ShinyButton } from "@/components/ui/ShinyButton";
 
 const PACKAGES = [
-  { price: 300, automations: 3, key: "essential" },
-  { price: 500, automations: 5, key: "professional" },
-  { price: 700, automations: 8, key: "complete" },
+  { price: 500, label: "Essencial", emails: "5.000/mês", key: "essential" },
+  { price: 900, label: "Profissional", emails: "15.000/mês", key: "professional" },
+  { price: 1500, label: "Escala", emails: "30.000/mês", key: "complete" },
 ];
-
-const CAL_LINK = "https://cal.com/andre-lopes/revenue-recovery-potential-call";
 
 export default function ROICalculator() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  const [monthlyRevenue, setMonthlyRevenue] = useState(10000);
-  const [systemPrice, setSystemPrice] = useState(500);
-  const [growthPercentage, setGrowthPercentage] = useState(15);
+  const [clientValue, setClientValue] = useState(2000);
+  const [systemPrice, setSystemPrice] = useState(900);
+  const [responseRate, setResponseRate] = useState(8);
 
   const selectedPackage =
     PACKAGES.find((p) => p.price === systemPrice) || PACKAGES[1];
 
+  // Derive email volume from package
+  const emailVolume = selectedPackage.key === "essential" ? 5000 : selectedPackage.key === "professional" ? 15000 : 30000;
+
   const results = useMemo(() => {
-    const monthlyIncrease = (monthlyRevenue * growthPercentage) / 100;
-    const yearlyReturn = monthlyIncrease * 12;
-    const roi = ((yearlyReturn - systemPrice) / systemPrice) * 100;
-    const paybackMonths =
-      monthlyIncrease > 0 ? Math.ceil(systemPrice / monthlyIncrease) : 0;
-    return { monthlyIncrease, yearlyReturn, roi, paybackMonths };
-  }, [monthlyRevenue, systemPrice, growthPercentage]);
+    const monthlyResponses = Math.round((emailVolume * responseRate) / 100);
+    const meetingsPerMonth = Math.round(monthlyResponses * 0.35); // 35% of responses become meetings
+    const clientsPerMonth = Math.round(meetingsPerMonth * 0.25); // 25% of meetings close
+    const monthlyRevenue = clientsPerMonth * clientValue;
+    const yearlyRevenue = monthlyRevenue * 12;
+    const roi = systemPrice > 0 ? ((monthlyRevenue - systemPrice) / systemPrice) * 100 : 0;
+    return { monthlyResponses, meetingsPerMonth, clientsPerMonth, monthlyRevenue, yearlyRevenue, roi };
+  }, [emailVolume, clientValue, systemPrice, responseRate]);
 
   const formatCurrency = (num: number) =>
-    "$" + Math.round(num).toLocaleString("en-US");
+    "€" + Math.round(num).toLocaleString("pt-PT");
 
   const formatROI = (value: number) => {
     const absValue = Math.abs(value);
@@ -43,7 +45,7 @@ export default function ROICalculator() {
     if (absValue >= 1000000)
       return sign + (absValue / 1000000).toFixed(1) + "M%";
     if (absValue >= 1000)
-      return sign + Math.round(value).toLocaleString("en-US") + "%";
+      return sign + Math.round(value).toLocaleString("pt-PT") + "%";
     return sign + Math.round(value) + "%";
   };
 
@@ -56,50 +58,51 @@ export default function ROICalculator() {
           transition={{ duration: 0.6 }}
         >
           <div className={styles.sectionHeader}>
-            <span className="section-badge">ROI Calculator</span>
+            <span className="section-badge">Calculadora de ROI</span>
             <h2 className="section-title section-title-centered">
-              Discover How Much This System Can Generate For Your Store
+              Descubra Quanto Este Sistema<br />
+              Pode Gerar Para o Seu Negócio
             </h2>
             <p className="section-subtitle section-subtitle-centered">
-              Use the data below to simulate how much you could receive with the
-              ThriveFlow Framework, a complete customer recovery system.
+              Use os dados abaixo para simular quanto poderia receber com o
+              sistema de cold email + IA, um sistema completo de aquisição de clientes.
             </p>
           </div>
 
           <div className={styles.layout}>
             {/* Left: Inputs */}
             <div className={styles.inputs}>
-              <h3 className={styles.inputsTitle}>Revenue Calculator</h3>
+              <h3 className={styles.inputsTitle}>Calculadora de Receita</h3>
 
-              {/* Monthly Revenue Slider */}
+              {/* Client Value Slider */}
               <div className={styles.sliderGroup}>
                 <div className={styles.sliderHeader}>
-                  <span className={styles.sliderLabel}>Monthly Revenue:</span>
+                  <span className={styles.sliderLabel}>Valor Médio por Cliente:</span>
                   <span className={styles.sliderValue}>
-                    {formatCurrency(monthlyRevenue)}
+                    {formatCurrency(clientValue)}
                   </span>
                 </div>
                 <input
                   className={styles.slider}
                   type="range"
-                  min="1000"
-                  max="100000"
-                  step="1000"
-                  value={monthlyRevenue}
-                  onChange={(e) => setMonthlyRevenue(parseInt(e.target.value))}
+                  min="500"
+                  max="50000"
+                  step="500"
+                  value={clientValue}
+                  onChange={(e) => setClientValue(parseInt(e.target.value))}
                 />
                 <div className={styles.sliderRange}>
-                  <span>$1,000</span>
-                  <span>$100,000</span>
+                  <span>€500</span>
+                  <span>€50.000</span>
                 </div>
               </div>
 
               {/* Package Selection */}
               <div className={styles.sliderGroup}>
                 <div className={styles.sliderHeader}>
-                  <span className={styles.sliderLabel}>Automation Package:</span>
+                  <span className={styles.sliderLabel}>Pacote do Sistema:</span>
                   <span className={styles.sliderValuePurple}>
-                    {selectedPackage.automations} Automations · ${selectedPackage.price}
+                    {selectedPackage.label} · {selectedPackage.emails}
                   </span>
                 </div>
                 <input
@@ -115,30 +118,30 @@ export default function ROICalculator() {
                 />
                 <div className={styles.sliderRange}>
                   {PACKAGES.map((pkg) => (
-                    <span key={pkg.key}>{pkg.automations} aut.</span>
+                    <span key={pkg.key}>{pkg.label}</span>
                   ))}
                 </div>
               </div>
 
-              {/* Sales Increase Slider */}
+              {/* Response Rate Slider */}
               <div className={styles.sliderGroup}>
                 <div className={styles.sliderHeader}>
-                  <span className={styles.sliderLabel}>Sales Increase:</span>
-                  <span className={styles.sliderValue}>{growthPercentage}%</span>
+                  <span className={styles.sliderLabel}>Taxa de Resposta:</span>
+                  <span className={styles.sliderValue}>{responseRate}%</span>
                 </div>
                 <input
                   className={styles.slider}
                   type="range"
-                  min="10"
-                  max="20"
+                  min="3"
+                  max="15"
                   step="1"
-                  value={growthPercentage}
-                  onChange={(e) => setGrowthPercentage(parseInt(e.target.value))}
+                  value={responseRate}
+                  onChange={(e) => setResponseRate(parseInt(e.target.value))}
                 />
                 <div className={styles.sliderRange}>
-                  <span>10%</span>
+                  <span>3%</span>
+                  <span>8%</span>
                   <span>15%</span>
-                  <span>20%</span>
                 </div>
               </div>
             </div>
@@ -146,55 +149,49 @@ export default function ROICalculator() {
             {/* Right: Results */}
             <SpotlightCard className={styles.results} spotlightColor="rgba(139, 92, 246, 0.15)">
               <h3 className={styles.resultsTitle}>
-                Your Growth <span className={styles.purple}>Potential</span>
+                O Seu Potencial de <span className={styles.purple}>Crescimento</span>
               </h3>
 
               <div className={styles.resultRow}>
-                <span className={styles.resultLabel}>Automation Package:</span>
+                <span className={styles.resultLabel}>Pacote:</span>
                 <span className={styles.resultValue}>
-                  {selectedPackage.automations} Automations
+                  {selectedPackage.label} · {selectedPackage.emails}
                 </span>
               </div>
 
               <div className={styles.resultRow}>
-                <span className={styles.resultLabel}>Investment:</span>
+                <span className={styles.resultLabel}>Investimento:</span>
                 <span className={styles.resultValueYellow}>
-                  ${selectedPackage.price}
+                  €{selectedPackage.price}/mês
                 </span>
               </div>
 
               <div className={styles.resultRow}>
-                <span className={styles.resultLabel}>Estimated Increase:</span>
-                <span className={styles.resultValue}>{growthPercentage}%</span>
+                <span className={styles.resultLabel}>Respostas/mês:</span>
+                <span className={styles.resultValue}>{results.monthlyResponses}</span>
               </div>
 
               <div className={styles.resultRow}>
-                <span className={styles.resultLabel}>Monthly Gain:</span>
+                <span className={styles.resultLabel}>Reuniões Estimadas:</span>
+                <span className={styles.resultValue}>{results.meetingsPerMonth}/mês</span>
+              </div>
+
+              <div className={styles.resultRow}>
+                <span className={styles.resultLabel}>Novos Clientes:</span>
                 <span className={styles.resultValueGreen}>
-                  {formatCurrency(results.monthlyIncrease)}
+                  {results.clientsPerMonth}/mês
                 </span>
               </div>
 
               <div className={styles.resultRow}>
-                <span className={styles.resultLabel}>Return in 1 Year</span>
+                <span className={styles.resultLabel}>Receita Mensal Estimada:</span>
                 <span className={styles.resultValueGreenBig}>
-                  {formatCurrency(results.yearlyReturn)}
-                </span>
-              </div>
-
-              <div className={styles.resultRow}>
-                <div>
-                  <div className={styles.resultLabel}>Payback</div>
-                  <div className={styles.resultSub}>Total return on investment</div>
-                </div>
-                <span className={styles.resultValueYellowMed}>
-                  {results.paybackMonths}{" "}
-                  {results.paybackMonths === 1 ? "month" : "months"}
+                  {formatCurrency(results.monthlyRevenue)}
                 </span>
               </div>
 
               <div className={styles.roiRow}>
-                <span className={styles.roiLabel}>ROI in 1 Year:</span>
+                <span className={styles.roiLabel}>ROI Mensal:</span>
                 <span className={styles.roiValue}>{formatROI(results.roi)}</span>
               </div>
             </SpotlightCard>
@@ -202,12 +199,12 @@ export default function ROICalculator() {
 
           <div className={styles.ctaRow}>
             <ShinyButton
-              data-cal-link="andre-lopes/revenue-recovery-potential-call"
-              data-cal-namespace="revenue-recovery-potential-call"
+              data-cal-link="andre-lopes/consultoria-gratuita-cold-email-system"
+              data-cal-namespace="consultoria-gratuita-cold-email-system"
               data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
               className="cta-button"
             >
-              Book Your Free Strategy Call
+              Agendar Consultoria Gratuita
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M6 10h8m0 0l-3-3m3 3l-3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>

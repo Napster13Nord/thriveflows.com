@@ -1,9 +1,9 @@
 import styles from "./Footer.module.css";
 
 const NAV_LINKS = [
-  { label: "Results", href: "#results" },
-  { label: "ROI Calculator", href: "#calculator" },
-  { label: "How it Works", href: "#how" },
+  { label: "O Meu Sistema", href: "#results" },
+  { label: "Calculadora de Receitas", href: "#calculator" },
+  { label: "O Meu Processo", href: "#how" },
   { label: "FAQs", href: "#faq" },
 ];
 
@@ -19,8 +19,10 @@ export default function Footer() {
               <span>Thrive Flows</span>
             </a>
             <p className={styles.brandDesc}>
-              Email Automation System for E-commerce. We turn lost visitors into
-              recurring customers automatically.
+              Sistemas automatizados de cold email + IA
+              para empresas B2B. Transformamos
+              prospects frios em reuniões qualificadas
+              com garantia de resultados.
             </p>
           </div>
 
@@ -38,7 +40,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div className={styles.col}>
-            <h4 className={styles.colTitle}>Contact</h4>
+            <h4 className={styles.colTitle}>Contacto</h4>
             <div className={styles.colLinks}>
               <a
                 href="mailto:hello@thriveflows.com"
@@ -46,7 +48,6 @@ export default function Footer() {
               >
                 hello@thriveflows.com
               </a>
-              <span className={styles.colText}>Based in Finland</span>
             </div>
           </div>
         </div>
@@ -65,7 +66,7 @@ export default function Footer() {
             </a>
           </div>
           <div className={styles.bottomRight}>
-            © All rights reserved
+            © All right reserved
           </div>
         </div>
       </div>

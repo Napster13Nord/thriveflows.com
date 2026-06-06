@@ -17,25 +17,25 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Increase Sales by 10-30% Without Ads | Email Automation for WooCommerce | ThriveFlows",
+  title: "Transforme Cold Emails em Clientes com IA | Sistema de Aquisição B2B | ThriveFlows",
   description:
-    "Done-for-you email automation for WooCommerce stores. Recover sales and increase revenue 10-30%. You only pay if it generates at least 10% of sales. 30-day free trial.",
+    "Sistema automatizado de cold email + IA para empresas B2B. Já trouxe 126 clientes em menos de 2 anos. Reuniões qualificadas todas as semanas. Consultoria gratuita.",
   icons: {
     icon: "/logo.webp",
   },
   openGraph: {
-    title: "Increase Sales by 10-30% Without Ads | Email Automation for WooCommerce | ThriveFlows",
+    title: "Transforme Cold Emails em Clientes com IA | Sistema de Aquisição B2B | ThriveFlows",
     description:
-      "Done-for-you email automation for WooCommerce stores. Recover sales and increase revenue 10-30%. You only pay if it generates at least 10% of sales. 30-day free trial.",
+      "Sistema automatizado de cold email + IA para empresas B2B. Já trouxe 126 clientes em menos de 2 anos. Reuniões qualificadas todas as semanas.",
     url: "https://thriveflows.com",
     siteName: "ThriveFlows",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Increase Sales by 10-30% Without Ads | Email Automation for WooCommerce | ThriveFlows",
+    title: "Transforme Cold Emails em Clientes com IA | ThriveFlows",
     description:
-      "Done-for-you email automation for WooCommerce stores. Recover sales and increase revenue 10-30%.",
+      "Sistema automatizado de cold email + IA para empresas B2B. 126 clientes em menos de 2 anos.",
   },
   robots: {
     index: true,
@@ -49,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt">
       <body className={`${figtree.variable} ${inter.variable}`}>
         {/* Google Analytics */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-PMY45G2F75" strategy="afterInteractive" />
@@ -78,8 +78,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-              Cal("init", "revenue-recovery-potential-call", {origin:"https://app.cal.com"});
-              Cal.ns["revenue-recovery-potential-call"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+              Cal("init", "consultoria-gratuita-cold-email-system", {origin:"https://app.cal.com"});
+              Cal.ns["consultoria-gratuita-cold-email-system"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
             `
           }}
         />

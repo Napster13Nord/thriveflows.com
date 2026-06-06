@@ -5,7 +5,6 @@ import VideoSection from "@/components/VideoSection";
 import ROICalculator from "@/components/ROICalculator";
 import HowItWorks from "@/components/HowItWorks";
 import FAQ from "@/components/FAQ";
-import UrgencyBanner from "@/components/UrgencyBanner";
 import CalEmbed from "@/components/CalEmbed";
 import Footer from "@/components/Footer";
 
@@ -20,7 +19,6 @@ export default function Home() {
         <ROICalculator />
         <HowItWorks />
         <FAQ />
-        <UrgencyBanner />
         <CalEmbed />
       </main>
       <Footer />

@@ -6,13 +6,11 @@ import styles from "./Header.module.css";
 import { ShinyButton } from "@/components/ui/ShinyButton";
 
 const NAV_LINKS = [
-  { label: "Results", href: "#results" },
-  { label: "ROI Calculator", href: "#calculator" },
-  { label: "How It Works", href: "#how" },
+  { label: "O Meu Sistema", href: "#results" },
+  { label: "Calculadora de Receitas", href: "#calculator" },
+  { label: "O Meu Processo", href: "#how" },
   { label: "FAQs", href: "#faq" },
 ];
-
-const CAL_LINK = "https://cal.com/andre-lopes/revenue-recovery-potential-call";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -53,12 +51,12 @@ export default function Header() {
         {/* CTA */}
         <ShinyButton
           alwaysActive
-          data-cal-link="andre-lopes/revenue-recovery-potential-call"
-          data-cal-namespace="revenue-recovery-potential-call"
+          data-cal-link="andre-lopes/consultoria-gratuita-cold-email-system"
+          data-cal-namespace="consultoria-gratuita-cold-email-system"
           data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
           className={styles.ctaDesktop}
         >
-          Book Your Free Strategy Call
+          Agendar Consultoria Gratuita
         </ShinyButton>
 
         {/* Mobile Toggle */}
@@ -94,12 +92,12 @@ export default function Header() {
               </a>
             ))}
             <ShinyButton
-              data-cal-link="andre-lopes/revenue-recovery-potential-call"
-              data-cal-namespace="revenue-recovery-potential-call"
+              data-cal-link="andre-lopes/consultoria-gratuita-cold-email-system"
+              data-cal-namespace="consultoria-gratuita-cold-email-system"
               data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
               onClick={() => setMobileOpen(false)}
             >
-              Book Your Free Strategy Call
+              Agendar Consultoria Gratuita
               <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
                 <path d="M5 13L13 5M13 5H6M13 5V12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
