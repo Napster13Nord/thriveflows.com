@@ -1,33 +1,21 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
+import Script from "next/script";
 import styles from "./VideoSection.module.css";
 import { ShinyButton } from "@/components/ui/ShinyButton";
 
 export default function VideoSection() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const wistiaLoaded = useRef(false);
-
-  // Load Wistia script once
-  useEffect(() => {
-    if (wistiaLoaded.current) return;
-    wistiaLoaded.current = true;
-
-    const jsonpScript = document.createElement("script");
-    jsonpScript.src = "https://fast.wistia.com/embed/medias/ijn8tzxiay.jsonp";
-    jsonpScript.async = true;
-    document.head.appendChild(jsonpScript);
-
-    const evScript = document.createElement("script");
-    evScript.src = "https://fast.wistia.com/assets/external/E-v1.js";
-    evScript.async = true;
-    document.head.appendChild(evScript);
-  }, []);
 
   return (
     <section id="results" className={`section ${styles.section}`} ref={ref}>
+      {/* Wistia Player Scripts */}
+      <Script src="https://fast.wistia.com/player.js" strategy="afterInteractive" />
+      <Script src="https://fast.wistia.com/embed/ijn8tzxiay.js" strategy="afterInteractive" type="module" />
+
       <div className="section-inner">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -49,29 +37,21 @@ export default function VideoSection() {
           <div className={styles.videoContainer}>
             <div className={styles.videoWrapper}>
               <div
-                className="wistia_responsive_padding"
-                style={{ padding: "56.25% 0 0 0", position: "relative" }}
-              >
-                <div
-                  className="wistia_responsive_wrapper"
-                  style={{
-                    height: "100%",
-                    left: 0,
-                    position: "absolute",
-                    top: 0,
-                    width: "100%",
-                  }}
-                >
-                  <div
-                    className="wistia_embed wistia_async_ijn8tzxiay seo=true videoFoam=true"
-                    style={{
-                      height: "100%",
-                      position: "relative",
-                      width: "100%",
-                    }}
-                  />
-                </div>
-              </div>
+                className={styles.wistiaEmbedWrapper}
+                dangerouslySetInnerHTML={{
+                  __html: `
+                    <style>
+                      wistia-player[media-id='ijn8tzxiay']:not(:defined) {
+                        background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/ijn8tzxiay/swatch');
+                        display: block;
+                        filter: blur(5px);
+                        padding-top: 56.25%;
+                      }
+                    </style>
+                    <wistia-player media-id="ijn8tzxiay" aspect="1.7777777777777777" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></wistia-player>
+                  `
+                }}
+              />
             </div>
           </div>
 
