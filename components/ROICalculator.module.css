@@ -51,10 +51,24 @@
   color: #fff;
 }
 
-.sliderValuePurple {
-  font-size: 18px;
+.sliderValueStack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0;
+}
+
+.sliderValueSub {
+  font-size: 14px;
   font-weight: 600;
   color: var(--accent-purple);
+}
+
+.guarantee {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  font-style: italic;
 }
 
 .slider {
@@ -134,39 +148,21 @@
   color: var(--text-secondary);
 }
 
-.resultSub {
-  font-size: 14px;
-  color: var(--text-faint);
-  margin-top: 2px;
-}
-
 .resultValue {
   font-size: 17px;
   font-weight: 700;
   color: #fff;
 }
 
-.resultValueYellow {
+.resultValueOrange {
   font-size: 17px;
   font-weight: 700;
-  color: var(--accent-yellow);
-}
-
-.resultValueYellowMed {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--accent-yellow);
+  color: #f59e0b;
 }
 
 .resultValueGreen {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
-  color: var(--accent-green);
-}
-
-.resultValueGreenBig {
-  font-size: 24px;
-  font-weight: 800;
   color: var(--accent-green);
 }
 

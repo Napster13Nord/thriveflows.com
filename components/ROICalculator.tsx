@@ -6,48 +6,29 @@ import styles from "./ROICalculator.module.css";
 import SpotlightCard from "./SpotlightCard";
 import { ShinyButton } from "@/components/ui/ShinyButton";
 
-const PACKAGES = [
-  { price: 500, label: "Essencial", emails: "5.000/mês", key: "essential" },
-  { price: 900, label: "Profissional", emails: "15.000/mês", key: "professional" },
-  { price: 1500, label: "Escala", emails: "30.000/mês", key: "complete" },
-];
-
 export default function ROICalculator() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  const [clientValue, setClientValue] = useState(2000);
-  const [systemPrice, setSystemPrice] = useState(900);
-  const [responseRate, setResponseRate] = useState(8);
+  const [emailsPerDay, setEmailsPerDay] = useState(500);
+  const [dealValue, setDealValue] = useState(15000);
+  const [closingRate, setClosingRate] = useState(25);
 
-  const selectedPackage =
-    PACKAGES.find((p) => p.price === systemPrice) || PACKAGES[1];
-
-  // Derive email volume from package
-  const emailVolume = selectedPackage.key === "essential" ? 5000 : selectedPackage.key === "professional" ? 15000 : 30000;
+  // Derived from email volume
+  const monthlyPrice = emailsPerDay * 2;
+  const guaranteedMeetings = Math.round(emailsPerDay / 50);
 
   const results = useMemo(() => {
-    const monthlyResponses = Math.round((emailVolume * responseRate) / 100);
-    const meetingsPerMonth = Math.round(monthlyResponses * 0.35); // 35% of responses become meetings
-    const clientsPerMonth = Math.round(meetingsPerMonth * 0.25); // 25% of meetings close
-    const monthlyRevenue = clientsPerMonth * clientValue;
+    const monthlyRevenue = guaranteedMeetings * (closingRate / 100) * dealValue;
     const yearlyRevenue = monthlyRevenue * 12;
-    const roi = systemPrice > 0 ? ((monthlyRevenue - systemPrice) / systemPrice) * 100 : 0;
-    return { monthlyResponses, meetingsPerMonth, clientsPerMonth, monthlyRevenue, yearlyRevenue, roi };
-  }, [emailVolume, clientValue, systemPrice, responseRate]);
+    const yearlyCost = monthlyPrice * 12;
+    const roi = yearlyCost > 0 ? Math.round(((yearlyRevenue - yearlyCost) / yearlyCost) * 100) : 0;
+    return { monthlyRevenue, yearlyRevenue, roi };
+  }, [guaranteedMeetings, closingRate, dealValue, monthlyPrice]);
 
-  const formatCurrency = (num: number) =>
-    "€" + Math.round(num).toLocaleString("pt-PT");
-
-  const formatROI = (value: number) => {
-    const absValue = Math.abs(value);
-    const sign = value > 0 ? "+" : "";
-    if (absValue >= 1000000)
-      return sign + (absValue / 1000000).toFixed(1) + "M%";
-    if (absValue >= 1000)
-      return sign + Math.round(value).toLocaleString("pt-PT") + "%";
-    return sign + Math.round(value) + "%";
-  };
+  // Format: 37 500 € (Portuguese style)
+  const fmtEur = (n: number) =>
+    Math.round(n).toLocaleString("pt-PT").replace(/\./g, " ") + " €";
 
   return (
     <section id="calculator" className={`section ${styles.section}`} ref={ref}>
@@ -70,129 +51,128 @@ export default function ROICalculator() {
           </div>
 
           <div className={styles.layout}>
-            {/* Left: Inputs */}
+            {/* ── Left: Inputs ── */}
             <div className={styles.inputs}>
               <h3 className={styles.inputsTitle}>Calculadora de Receita</h3>
 
-              {/* Client Value Slider */}
+              {/* 1. Volume de Emails */}
               <div className={styles.sliderGroup}>
                 <div className={styles.sliderHeader}>
-                  <span className={styles.sliderLabel}>Valor Médio por Cliente:</span>
+                  <span className={styles.sliderLabel}>Volume de Emails:</span>
+                  <div className={styles.sliderValueStack}>
+                    <span className={styles.sliderValue}>
+                      Até {emailsPerDay} emails/dia
+                    </span>
+                    <span className={styles.sliderValueSub}>
+                      {fmtEur(monthlyPrice)}/mês
+                    </span>
+                  </div>
+                </div>
+                <input
+                  className={styles.slider}
+                  type="range"
+                  min="100"
+                  max="1000"
+                  step="100"
+                  value={emailsPerDay}
+                  onChange={(e) => setEmailsPerDay(parseInt(e.target.value))}
+                />
+                <div className={styles.sliderRange}>
+                  <span>100/dia</span>
+                  <span>1000/dia</span>
+                </div>
+                <div className={styles.guarantee}>
+                  Garantia: {guaranteedMeetings} reuniões qualificadas/mês
+                </div>
+              </div>
+
+              {/* 2. Valor Médio do Negócio */}
+              <div className={styles.sliderGroup}>
+                <div className={styles.sliderHeader}>
+                  <span className={styles.sliderLabel}>Valor Médio do Negócio:</span>
                   <span className={styles.sliderValue}>
-                    {formatCurrency(clientValue)}
+                    {fmtEur(dealValue)}
                   </span>
                 </div>
                 <input
                   className={styles.slider}
                   type="range"
-                  min="500"
-                  max="50000"
-                  step="500"
-                  value={clientValue}
-                  onChange={(e) => setClientValue(parseInt(e.target.value))}
+                  min="1000"
+                  max="100000"
+                  step="1000"
+                  value={dealValue}
+                  onChange={(e) => setDealValue(parseInt(e.target.value))}
                 />
                 <div className={styles.sliderRange}>
-                  <span>€500</span>
-                  <span>€50.000</span>
+                  <span>€1.000</span>
+                  <span>€100.000</span>
                 </div>
               </div>
 
-              {/* Package Selection */}
+              {/* 3. Taxa de Fechamento */}
               <div className={styles.sliderGroup}>
                 <div className={styles.sliderHeader}>
-                  <span className={styles.sliderLabel}>Pacote do Sistema:</span>
-                  <span className={styles.sliderValuePurple}>
-                    {selectedPackage.label} · {selectedPackage.emails}
-                  </span>
+                  <span className={styles.sliderLabel}>Taxa de Fechamento (%):</span>
+                  <span className={styles.sliderValue}>{closingRate}%</span>
                 </div>
                 <input
                   className={styles.slider}
                   type="range"
-                  min="0"
-                  max="2"
-                  step="1"
-                  value={PACKAGES.findIndex((p) => p.price === systemPrice)}
-                  onChange={(e) =>
-                    setSystemPrice(PACKAGES[parseInt(e.target.value)].price)
-                  }
+                  min="10"
+                  max="50"
+                  step="5"
+                  value={closingRate}
+                  onChange={(e) => setClosingRate(parseInt(e.target.value))}
                 />
                 <div className={styles.sliderRange}>
-                  {PACKAGES.map((pkg) => (
-                    <span key={pkg.key}>{pkg.label}</span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Response Rate Slider */}
-              <div className={styles.sliderGroup}>
-                <div className={styles.sliderHeader}>
-                  <span className={styles.sliderLabel}>Taxa de Resposta:</span>
-                  <span className={styles.sliderValue}>{responseRate}%</span>
-                </div>
-                <input
-                  className={styles.slider}
-                  type="range"
-                  min="3"
-                  max="15"
-                  step="1"
-                  value={responseRate}
-                  onChange={(e) => setResponseRate(parseInt(e.target.value))}
-                />
-                <div className={styles.sliderRange}>
-                  <span>3%</span>
-                  <span>8%</span>
-                  <span>15%</span>
+                  <span>10%</span>
+                  <span>50%</span>
                 </div>
               </div>
             </div>
 
-            {/* Right: Results */}
+            {/* ── Right: Results ── */}
             <SpotlightCard className={styles.results} spotlightColor="rgba(139, 92, 246, 0.15)">
               <h3 className={styles.resultsTitle}>
                 O Seu Potencial de <span className={styles.purple}>Crescimento</span>
               </h3>
 
               <div className={styles.resultRow}>
-                <span className={styles.resultLabel}>Pacote:</span>
-                <span className={styles.resultValue}>
-                  {selectedPackage.label} · {selectedPackage.emails}
+                <span className={styles.resultLabel}>Volume de Emails:</span>
+                <span className={styles.resultValueOrange}>
+                  Até {emailsPerDay} emails/dia
                 </span>
               </div>
 
               <div className={styles.resultRow}>
-                <span className={styles.resultLabel}>Investimento:</span>
-                <span className={styles.resultValueYellow}>
-                  €{selectedPackage.price}/mês
+                <span className={styles.resultLabel}>Mensalidade do Sistema:</span>
+                <span className={styles.resultValueOrange}>
+                  {fmtEur(monthlyPrice)}
                 </span>
               </div>
 
               <div className={styles.resultRow}>
-                <span className={styles.resultLabel}>Respostas/mês:</span>
-                <span className={styles.resultValue}>{results.monthlyResponses}</span>
+                <span className={styles.resultLabel}>Reuniões Garantidas/Mês:</span>
+                <span className={styles.resultValue}>{guaranteedMeetings}</span>
               </div>
 
               <div className={styles.resultRow}>
-                <span className={styles.resultLabel}>Reuniões Estimadas:</span>
-                <span className={styles.resultValue}>{results.meetingsPerMonth}/mês</span>
-              </div>
-
-              <div className={styles.resultRow}>
-                <span className={styles.resultLabel}>Novos Clientes:</span>
+                <span className={styles.resultLabel}>Receita Mensal Gerada:</span>
                 <span className={styles.resultValueGreen}>
-                  {results.clientsPerMonth}/mês
+                  {fmtEur(results.monthlyRevenue)}
                 </span>
               </div>
 
               <div className={styles.resultRow}>
-                <span className={styles.resultLabel}>Receita Mensal Estimada:</span>
-                <span className={styles.resultValueGreenBig}>
-                  {formatCurrency(results.monthlyRevenue)}
+                <span className={styles.resultLabel}>Projeção Anual de Receita:</span>
+                <span className={styles.resultValueGreen}>
+                  {fmtEur(results.yearlyRevenue)}
                 </span>
               </div>
 
               <div className={styles.roiRow}>
-                <span className={styles.roiLabel}>ROI Mensal:</span>
-                <span className={styles.roiValue}>{formatROI(results.roi)}</span>
+                <span className={styles.roiLabel}>ROI Projetado:</span>
+                <span className={styles.roiValue}>{results.roi}%</span>
               </div>
             </SpotlightCard>
           </div>
